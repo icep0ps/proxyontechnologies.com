@@ -1,103 +1,760 @@
+import type React from "react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Code,
+  Cloud,
+  Smartphone,
+  BarChart3,
+  Palette,
+  Database,
+  CreditCard,
+  Users,
+  Tractor,
+  type LucideIcon,
+  Plus,
+} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+type Faq = {
+  key: string;
+  question: string;
+  answer: string;
+};
+
+type Service = {
+  key: string;
+  href: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  hasGlow: boolean;
+  status: "Live" | "Beta" | "New";
+  detail: string;
+};
+
+type Project = {
+  key: string;
+  image: string;
+  title: string;
+  description: string;
+  stats: Map<string, React.ReactNode>;
+};
+
+const services: Service[] = [
+  {
+    key: "service-1",
+    href: "#",
+    icon: Code,
+    title: "Custom Software Development",
+    description:
+      "Tailored ERP, CRM, and web/mobile applications for your business needs.",
+    hasGlow: true,
+    status: "Live",
+    detail: "Enterprise-grade solutions",
+  },
+  {
+    key: "service-2",
+    href: "#",
+    icon: Cloud,
+    title: "Cloud & Infrastructure",
+    description:
+      "Cloud-native development, secure hosting, and data migration services.",
+    hasGlow: false,
+    status: "Live",
+    detail: "Scalable architecture",
+  },
+  {
+    key: "service-3",
+    href: "#",
+    icon: CreditCard,
+    title: "Digital Payments & FinTech",
+    description:
+      "Secure transaction platforms, wallet integrations, and financial APIs.",
+    hasGlow: false,
+    status: "Live",
+    detail: "End-to-end encrypted",
+  },
+  {
+    key: "service-4",
+    href: "#",
+    icon: Palette,
+    title: "UI/UX & Product Design",
+    description:
+      "Intuitive interface design, prototyping, and user research services.",
+    hasGlow: false,
+    status: "Live",
+    detail: "User-centered design",
+  },
+];
+
+const projects: Project[] = [
+  {
+    key: "agrilease",
+    image: "/agricultural-equipment-rental-platform-interface.jpg",
+    title: "Agrilease",
+    description:
+      "An intelligent agricultural equipment rental and marketplace platform empowering smallholder farmers across Zimbabwe and Southern Africa with access to mechanization.",
+    stats: new Map([
+      [
+        "Status",
+        <Badge key="status-agrilease" variant="default">
+          Live
+        </Badge>,
+      ],
+      ["Market", "Zimbabwe & SADC"],
+      ["Impact", "Democratizing farm mechanization"],
+    ]),
+  },
+  {
+    key: "nexpay",
+    image: "/mobile-payment-app-interface-with-nfc-and-qr-code.jpg",
+    title: "NeX Pay",
+    description:
+      "A revolutionary cardless, mobile-based money transfer system enabling fast, secure digital payments without traditional banking infrastructure across Africa.",
+    stats: new Map([
+      [
+        "Status",
+        <Badge key="status-nexpay" variant="default">
+          Beta
+        </Badge>,
+      ],
+      ["Technology", "NFC + QR Payments"],
+      ["Target", "Pan-African expansion"],
+    ]),
+  },
+];
+
+const faqs: Faq[] = [
+  {
+    key: "faq-1",
+    question: "What industries do you specialize in?",
+    answer:
+      "We specialize in FinTech, AgriTech, and custom enterprise solutions for businesses in Zimbabwe and the broader SADC region. Our expertise lies in creating technology that solves local challenges and drives digital transformation.",
+  },
+  {
+    key: "faq-2",
+    question: "Can you integrate third-party tools and APIs?",
+    answer:
+      "Absolutely. We have extensive experience in seamlessly integrating a wide range of third-party services, including payment gateways, analytics platforms, and other essential business tools to create a cohesive and powerful system.",
+  },
+  {
+    key: "faq-3",
+    question: "How long does it take to develop a project?",
+    answer:
+      "Project timelines vary based on complexity, scope, and client requirements. A simple project might take a few weeks, while a complex enterprise system could take several months. We follow an agile methodology to deliver value quickly and adapt to changes.",
+  },
+  {
+    key: "faq-4",
+    question: "How do we start working together?",
+    answer:
+      "The first step is a discovery call where we discuss your goals and challenges. From there, we'll move to a detailed proposal, and upon agreement, we'll kick off the project with our dedicated team. Just reach out through our contact page to get started!",
+  },
+  {
+    key: "faq-5",
+    question: "Do you offer ongoing support and maintenance?",
+    answer:
+      "Yes, we offer comprehensive support and maintenance packages to ensure your software runs smoothly long after launch. This includes updates, bug fixes, security monitoring, and performance optimization to keep your system in top condition.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="container mx-auto">
+      <div className="bg-background text-foreground p-6 flex justify-between items-center border-b border-border/20">
+        <NavigationMenu>
+          <NavigationMenuList className="space-x-6">
+            <NavigationMenuItem>
+              <NavigationMenuLink className="font-semibold text-foreground hover:text-primary transition-colors">
+                Home
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent text-foreground font-medium">
+                Services
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <a
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/"
+                      >
+                        <div className="mb-2 mt-4 text-lg font-medium">
+                          Proxyon Technologies
+                        </div>
+                        <p className="text-sm leading-tight text-muted-foreground">
+                          Powering Zimbabwe's digital revolution through
+                          innovative software solutions.
+                        </p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink
+                      href="#"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      <div className="font-medium">
+                        Custom Software Development
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-tight">
+                        ERP, CRM, and web/mobile applications tailored to your
+                        needs.
+                      </p>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink
+                      href="#"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      <div className="font-medium">
+                        Digital Payments & FinTech
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-tight">
+                        Secure transaction platforms and financial system APIs.
+                      </p>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink
+                      href="#"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      <div className="font-medium">Cloud & Infrastructure</div>
+                      <p className="text-sm text-muted-foreground leading-tight">
+                        Cloud-native development and secure hosting solutions.
+                      </p>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent text-foreground font-medium">
+                Solutions
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  <li>
+                    <NavigationMenuLink
+                      href="#"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      <div className="font-medium flex items-center gap-2">
+                        <Tractor size={16} />
+                        Agrilease
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-tight">
+                        Agricultural equipment rental platform for smallholder
+                        farmers.
+                      </p>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink
+                      href="#"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      <div className="font-medium flex items-center gap-2">
+                        <CreditCard size={16} />
+                        NeX Pay
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-tight">
+                        Cardless mobile payment system revolutionizing African
+                        payments.
+                      </p>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink className="font-semibold text-foreground hover:text-primary transition-colors">
+                Contact
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <div className="flex space-x-3">
+          <Button
+            variant="outline"
+            className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Log in
+          </Button>
+          <Button className="bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-200">
+            Get Started
+          </Button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </div>
+      <section className="min-h-screen bg-background text-center flex flex-col justify-center items-center px-8 py-16">
+        <Badge
+          variant="outline"
+          className="bg-primary font-semibold text-sm py-2 px-4 rounded-full mb-6 transition-colors border-none"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          <Badge key="new-badge" variant="secondary" className="mr-2">
+            New
+          </Badge>
+          Digital Transformation Solutions →
+        </Badge>
+        <h1 className="text-foreground text-5xl md:text-7xl font-bold leading-tight max-w-5xl text-balance">
+          Powering Zimbabwe's Digital Revolution
+        </h1>
+        <p className="text-muted-foreground text-lg md:text-xl mt-6 max-w-3xl text-pretty leading-relaxed">
+          We harness innovation to provide cutting-edge software solutions that
+          empower businesses to adapt and thrive in the ever-evolving digital
+          realm across Southern Africa.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 mt-10">
+          <Button className="bg-primary text-primary-foreground font-semibold py-6 px-8 rounded-full hover:bg-primary/90 transition-all duration-200 text-base">
+            Explore Our Solutions <ArrowRight className="ml-2" />
+          </Button>
+          <Button
+            variant="outline"
+            className="text-foreground border-border py-6 px-8 rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200 text-base"
+          >
+            Contact Sales <ArrowRight className="ml-2" />
+          </Button>
+        </div>
+      </section>
+      <section className="bg-card text-foreground py-20 px-6 space-y-8 rounded-3xl my-8">
+        <div className="container mx-auto">
+          <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div className="space-y-6">
+              <Badge variant="outline" className="bg-background/50">
+                Our Subsidiaries
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold leading-tight text-balance">
+                Innovative Solutions for Real-World Challenges
+              </h2>
+            </div>
+            <div className="text-muted-foreground text-base space-y-4 leading-relaxed">
+              <p>
+                Our subsidiary companies, Agrilease and NeX Pay, represent our
+                commitment to solving critical challenges in agriculture and
+                financial inclusion across Africa. Each platform is designed
+                with local needs in mind while leveraging cutting-edge
+                technology.
+              </p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((project) => (
+              <Card
+                key={project.key}
+                className="rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 border-border/50"
+              >
+                <div className="relative w-full h-56 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl overflow-hidden mb-6">
+                  <Image
+                    src={project.image || "/placeholder.svg"}
+                    alt={`${project.title} platform interface`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <CardHeader className="px-0 pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-2xl font-bold">
+                      {project.title}
+                    </CardTitle>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="text-foreground hover:bg-primary hover:text-primary-foreground transition-colors bg-transparent"
+                    >
+                      <ArrowUpRight className="h-5 w-5" />
+                    </Button>
+                  </div>
+                  <CardDescription className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                    {project.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="px-0 pb-0">
+                  <div className="space-y-3">
+                    {Array.from(project.stats.entries()).map(
+                      ([label, value]) => (
+                        <div
+                          key={label}
+                          className="flex items-center justify-between text-sm"
+                        >
+                          <span className="text-muted-foreground">
+                            {label}:
+                          </span>
+                          <span className="font-medium text-foreground">
+                            {value}
+                          </span>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-background text-foreground py-20 px-6">
+        <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column: Image */}
+          <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
+            <Image
+              src="/developer.jpg"
+              alt="A software developer working at a desk"
+              fill
+              style={{ objectFit: "cover" }}
+              className="group-hover:scale-105 transition-transform duration-500 "
+            />
+          </div>
+          {/* Right Column: Services */}
+          <div>
+            <div className="max-w-3xl mb-12">
+              <Badge variant="outline" className="mb-4">
+                Our Services
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
+                Comprehensive Digital Solutions
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                From custom software development to digital transformation
+                consulting, we provide end-to-end technology solutions that
+                drive business growth and innovation.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 border border-border/20 rounded-2xl overflow-hidden">
+              {services.map((service, index) => (
+                <Link
+                  href={service.href}
+                  key={service.key}
+                  className={`group relative overflow-hidden transition-all duration-300 hover:bg-card/50 ${
+                    index % 2 !== 1 ? "sm:border-r border-border/20" : ""
+                  } ${
+                    index < services.length - 2
+                      ? "border-b border-border/20"
+                      : ""
+                  }`}
+                >
+                  <div className="p-8 transition-colors flex flex-col justify-between items-start relative z-10 h-full min-h-[280px]">
+                    {/* Glow effect */}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent transition-opacity duration-300 ${
+                        service.hasGlow
+                          ? "opacity-100"
+                          : "opacity-0 group-hover:opacity-100"
+                      }`}
+                    />
+
+                    {/* Top content */}
+                    <div className="relative z-20 w-full">
+                      <div className="flex items-center justify-between mb-6">
+                        <Button
+                          variant="outline"
+                          className="rounded-xl h-12 w-12 p-0 flex items-center justify-center border-border/50 hover:border-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 bg-transparent"
+                          aria-hidden="true"
+                        >
+                          <service.icon size={20} />
+                        </Button>
+                        <ArrowUpRight
+                          size={18}
+                          strokeWidth={2}
+                          className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 text-muted-foreground group-hover:text-primary"
+                        />
+                      </div>
+                      <h4 className="font-semibold text-lg leading-tight mb-3 text-balance">
+                        {service.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* Bottom content */}
+                    <div className="relative z-20 w-full mt-6">
+                      <div className="border-t border-border/20 pt-4 flex justify-between items-center text-xs">
+                        <Badge
+                          key={`status-${service.key}`}
+                          variant={
+                            service.status === "New" ? "default" : "secondary"
+                          }
+                          className="px-3 py-1 text-xs font-medium"
+                        >
+                          {service.status}
+                        </Badge>
+                        <span className="text-muted-foreground text-right font-medium">
+                          {service.detail}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="bg-background text-foreground py-20 px-6">
+        <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column: Title */}
+          <div className="max-w-md">
+            <h2 className="text-5xl font-bold leading-tight text-balance">
+              Everything You Need To Know
+            </h2>
+            <p className="text-muted-foreground mt-4 text-lg leading-relaxed">
+              Find answers to common questions about our process, services, and
+              how we can partner to build your next big idea.
+            </p>
+          </div>
+          {/* Right Column: Accordion */}
+          <div className="w-full">
+            <Accordion type="single" collapsible className="w-full space-y-3">
+              {faqs.map((faq) => (
+                <AccordionItem
+                  key={faq.key}
+                  value={faq.key}
+                  className="bg-card/50 border border-border/20 rounded-xl transition-colors hover:bg-card"
+                >
+                  <AccordionTrigger className="w-full flex items-center justify-between p-6 font-semibold text-lg text-left hover:no-underline [&>svg]:hidden">
+                    <span className="text-balance">{faq.question}</span>
+                    <div className="flex-shrink-0 ml-4 p-2 rounded-full border border-border/50 group-data-[state=open]:bg-primary group-data-[state=open]:text-primary-foreground transition-all duration-300">
+                      <Plus className="h-4 w-4 transition-transform duration-300 group-data-[state=open]:rotate-45" />
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6 text-muted-foreground text-base leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer Section */}
+      <footer className="bg-background text-muted-foreground pt-16 pb-6">
+        <div className="container mx-auto space-y-12">
+          {/* Top section: CTA */}
+          <div className="flex justify-between items-center border-y border-white/30 py-10">
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight text-foreground text-balance">
+              Let's work together
+            </h2>
+
+            <ArrowUpRight className="h-20 w-20 text-primary" />
+          </div>
+
+          {/* Main footer content */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            <div className="flex flex-col items-start space-y-4">
+              <div className="text-foreground text-xl font-bold">
+                Proxyon Technologies
+              </div>
+              <div className="text-sm space-y-1">
+                <p>Suite 2, Block C, Highlands Offices</p>
+                <p>Harare, Zimbabwe</p>
+                <p>+263 77 123 4567</p>
+                <p>info@proxyon.tech</p>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-foreground font-semibold mb-4">Services</h4>
+              <ul className="text-sm space-y-2">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Custom Software Development
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Cloud & Infrastructure
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Digital Payments & FinTech
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    UI/UX & Product Design
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Data Analytics & Intelligence
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-foreground font-semibold mb-4">Solutions</h4>
+              <ul className="text-sm space-y-2">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Agrilease
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    NeX Pay
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-foreground font-semibold mb-4">Company</h4>
+              <ul className="text-sm space-y-2">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Team
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Press
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-foreground font-semibold mb-4">Connect</h4>
+              <ul className="text-sm space-y-2">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Contact Sales
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Support
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Twitter
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    LinkedIn
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Copyright and legal links */}
+          <div className="flex flex-col sm:flex-row justify-between items-center text-xs border-t border-white/30 pt-6">
+            <p>
+              © {new Date().getFullYear()} Proxyon Technologies. All rights
+              reserved.
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 sm:mt-0">
+              <Link href="#" className="hover:text-primary transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="#" className="hover:text-primary transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="#" className="hover:text-primary transition-colors">
+                Cookie Policy
+              </Link>
+            </div>
+          </div>
+        </div>
       </footer>
-    </div>
+    </main>
   );
 }
