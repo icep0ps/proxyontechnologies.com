@@ -1,12 +1,5 @@
+import Image from "next/image";
 import type React from "react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -14,17 +7,11 @@ import {
   ArrowUpRight,
   Code,
   Cloud,
-  Smartphone,
-  BarChart3,
   Palette,
-  Database,
   CreditCard,
-  Users,
-  Tractor,
   type LucideIcon,
   Plus,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Card,
@@ -39,6 +26,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 type Faq = {
   key: string;
@@ -63,6 +51,16 @@ type Project = {
   title: string;
   description: string;
   stats: Map<string, React.ReactNode>;
+};
+
+type Blog = {
+  key: string;
+  image: string;
+  title: string;
+  description: string;
+  author: string;
+  authorImage: string;
+  date: string;
 };
 
 const services: Service[] = [
@@ -126,8 +124,8 @@ const projects: Project[] = [
           Live
         </Badge>,
       ],
-      ["Market", "Zimbabwe & SADC"],
-      ["Impact", "Democratizing farm mechanization"],
+      ["Market", <span>Zimbabwe & SADC</span>],
+      ["Impact", <span>Democratizing farm mechanization</span>],
     ]),
   },
   {
@@ -143,9 +141,42 @@ const projects: Project[] = [
           Beta
         </Badge>,
       ],
-      ["Technology", "NFC + QR Payments"],
-      ["Target", "Pan-African expansion"],
+      ["Technology", <span>NFC + QR Payments</span>],
+      ["Target", <span>Pan-African expansion</span>],
     ]),
+  },
+];
+
+const blogs: Blog[] = [
+  {
+    key: "blog-1",
+    image: "/blog/post-one.jpg",
+    title: "The Future of FinTech in Africa",
+    description:
+      "Exploring the trends and technologies shaping the future of financial services across the continent.",
+    author: "John Doe",
+    authorImage: "/avatars/john-doe.jpg",
+    date: "Oct 1, 2025",
+  },
+  {
+    key: "blog-2",
+    image: "/blog/post-two.jpg",
+    title: "AgriTech: A Revolution in Farming",
+    description:
+      "How technology is transforming agriculture, from precision farming to supply chain optimization.",
+    author: "Jane Smith",
+    authorImage: "/avatars/jane-smith.jpg",
+    date: "Sep 25, 2025",
+  },
+  {
+    key: "blog-3",
+    image: "/blog/post-three.jpg",
+    title: "The Power of Custom Software",
+    description:
+      "Why off-the-shelf solutions may not be the best fit for your business and how custom software can help.",
+    author: "Peter Jones",
+    authorImage: "/avatars/peter-jones.jpg",
+    date: "Sep 15, 2025",
   },
 ];
 
@@ -172,7 +203,7 @@ const faqs: Faq[] = [
     key: "faq-4",
     question: "How do we start working together?",
     answer:
-      "The first step is a discovery call where we discuss your goals and challenges. From there, we'll move to a detailed proposal, and upon agreement, we'll kick off the project with our dedicated team. Just reach out through our contact page to get started!",
+      "The first step is a discovery call where we discuss your goals and challenges. From there, we'll move to a detailed proposal, and upon agreement, we'll kick off the project with our dedicated team. Just reach out through our contact page to get started!.",
   },
   {
     key: "faq-5",
@@ -185,135 +216,6 @@ const faqs: Faq[] = [
 export default function Home() {
   return (
     <main className="container mx-auto">
-      <div className="bg-background text-foreground p-6 flex justify-between items-center border-b border-border/20">
-        <NavigationMenu>
-          <NavigationMenuList className="space-x-6">
-            <NavigationMenuItem>
-              <NavigationMenuLink className="font-semibold text-foreground hover:text-primary transition-colors">
-                Home
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent text-foreground font-medium">
-                Services
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <li className="row-span-3">
-                    <NavigationMenuLink asChild>
-                      <a
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                        href="/"
-                      >
-                        <div className="mb-2 mt-4 text-lg font-medium">
-                          Proxyon Technologies
-                        </div>
-                        <p className="text-sm leading-tight text-muted-foreground">
-                          Powering Zimbabwe's digital revolution through
-                          innovative software solutions.
-                        </p>
-                      </a>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink
-                      href="#"
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="font-medium">
-                        Custom Software Development
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-tight">
-                        ERP, CRM, and web/mobile applications tailored to your
-                        needs.
-                      </p>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink
-                      href="#"
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="font-medium">
-                        Digital Payments & FinTech
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-tight">
-                        Secure transaction platforms and financial system APIs.
-                      </p>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink
-                      href="#"
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="font-medium">Cloud & Infrastructure</div>
-                      <p className="text-sm text-muted-foreground leading-tight">
-                        Cloud-native development and secure hosting solutions.
-                      </p>
-                    </NavigationMenuLink>
-                  </li>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent text-foreground font-medium">
-                Solutions
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  <li>
-                    <NavigationMenuLink
-                      href="#"
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="font-medium flex items-center gap-2">
-                        <Tractor size={16} />
-                        Agrilease
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-tight">
-                        Agricultural equipment rental platform for smallholder
-                        farmers.
-                      </p>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink
-                      href="#"
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="font-medium flex items-center gap-2">
-                        <CreditCard size={16} />
-                        NeX Pay
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-tight">
-                        Cardless mobile payment system revolutionizing African
-                        payments.
-                      </p>
-                    </NavigationMenuLink>
-                  </li>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className="font-semibold text-foreground hover:text-primary transition-colors">
-                Contact
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <div className="flex space-x-3">
-          <Button
-            variant="outline"
-            className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
-          >
-            Log in
-          </Button>
-          <Button className="bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-200">
-            Get Started
-          </Button>
-        </div>
-      </div>
       <section className="min-h-screen bg-background text-center flex flex-col justify-center items-center px-8 py-16">
         <Badge
           variant="outline"
@@ -325,7 +227,7 @@ export default function Home() {
           Digital Transformation Solutions →
         </Badge>
         <h1 className="text-foreground text-5xl md:text-7xl font-bold leading-tight max-w-5xl text-balance">
-          Powering Zimbabwe's Digital Revolution
+          Powering Zimbabwe&apos;s Digital Revolution
         </h1>
         <p className="text-muted-foreground text-lg md:text-xl mt-6 max-w-3xl text-pretty leading-relaxed">
           We harness innovation to provide cutting-edge software solutions that
@@ -424,7 +326,7 @@ export default function Home() {
       <section className="bg-background text-foreground py-20 px-6">
         <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column: Image */}
-          <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
+          <div className="relative h-[500px] w-full overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
             <Image
               src="/developer.jpg"
               alt="A software developer working at a desk"
@@ -556,13 +458,74 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-background text-foreground py-20 px-6">
+        <div className="container mx-auto">
+          <div className="max-w-3xl mb-12 text-center mx-auto">
+            <Badge variant="outline" className="mb-4">
+              From the Blog
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
+              Insights and Innovations
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Stay updated with the latest trends in technology and our
+              perspectives on the digital landscape in Africa.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {blogs.map((blog) => (
+              <Card
+                key={blog.key}
+                className="rounded-3xl p-0 hover:shadow-lg transition-shadow duration-300 border-border/50 overflow-hidden"
+              >
+                <div className="relative w-full h-48 bg-gradient-to-br from-primary/20 to-primary/5">
+                  <Image
+                    src={blog.image || "/placeholder.svg"}
+                    alt={`${blog.title} blog post image`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <CardHeader className="px-0 pb-4">
+                    <CardTitle className="text-xl font-bold mb-2">
+                      {blog.title}
+                    </CardTitle>
+                    <CardDescription className="text-sm text-muted-foreground leading-relaxed">
+                      {blog.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="px-0 pb-0">
+                    <div className="flex items-center space-x-3 mt-4">
+                      <Avatar>
+                        <AvatarImage
+                          src={blog.authorImage || "/placeholder.svg"}
+                          alt="@shadcn"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-semibold text-xs">{blog.author}</p>
+                        <p className="text-muted-foreground text-xs">
+                          {blog.date}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer Section */}
       <footer className="bg-background text-muted-foreground pt-16 pb-6">
         <div className="container mx-auto space-y-12">
           {/* Top section: CTA */}
           <div className="flex justify-between items-center border-y border-white/30 py-10">
             <h2 className="text-4xl md:text-5xl font-bold leading-tight text-foreground text-balance">
-              Let's work together
+              Let&apos;s work together
             </h2>
 
             <ArrowUpRight className="h-20 w-20 text-primary" />
