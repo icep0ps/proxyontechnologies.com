@@ -26,7 +26,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type Faq = {
   key: string;
@@ -61,6 +61,15 @@ type Blog = {
   author: string;
   authorImage: string;
   date: string;
+};
+
+// Define a type for team members
+type TeamMember = {
+  key: string;
+  name: string;
+  role: string;
+  image: string;
+  isActive?: boolean;
 };
 
 const services: Service[] = [
@@ -210,6 +219,47 @@ const faqs: Faq[] = [
     question: "Do you offer ongoing support and maintenance?",
     answer:
       "Yes, we offer comprehensive support and maintenance packages to ensure your software runs smoothly long after launch. This includes updates, bug fixes, security monitoring, and performance optimization to keep your system in top condition.",
+  },
+];
+
+// Create an array for your team members
+const teamMembers: TeamMember[] = [
+  {
+    key: "member-1",
+    name: "Natalie Carter",
+    role: "Customer Success Agent",
+    image: "/avatars/natalie-carter.jpg", // Make sure you have this image in your public/avatars folder
+  },
+  {
+    key: "member-2",
+    name: "Lucy Gray",
+    role: "Customer Success Lead",
+    image: "/avatars/lucy-gray.jpg", // This member will have the active state styling
+    isActive: true,
+  },
+  {
+    key: "member-3",
+    name: "Olivia Martinez",
+    role: "Payments Support",
+    image: "/avatars/olivia-martinez.jpg",
+  },
+  {
+    key: "member-4",
+    name: "Richard Mills",
+    role: "Payments Support",
+    image: "/avatars/richard-mills.jpg",
+  },
+  {
+    key: "member-5",
+    name: "Sophie Chamberlain",
+    role: "Specialized Support",
+    image: "/avatars/sophie-chamberlain.jpg",
+  },
+  {
+    key: "member-6",
+    name: "Erik Anders",
+    role: "VP of Customer Support",
+    image: "/avatars/erik-anders.jpg",
   },
 ];
 
@@ -421,6 +471,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section className="bg-background text-foreground py-20 px-6">
         <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Column: Title */}
