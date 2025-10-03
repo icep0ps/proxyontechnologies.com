@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-background text-muted-foreground pt-16 pb-6">
+    <footer className="bg-background text-muted-foreground pt-16 pb-6 px-8 md:px-6">
       <div className="container mx-auto space-y-12">
         {/* Top section: CTA */}
         <div className="flex justify-between items-center border-y border-white/30 py-10">

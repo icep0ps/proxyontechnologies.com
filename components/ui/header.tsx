@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -98,8 +98,7 @@ export function Header() {
                         Digital Payments & FinTech
                       </div>
                       <p className="text-sm text-muted-foreground leading-tight">
-                        Secure transaction platforms and financial system
-                        APIs.
+                        Secure transaction platforms and financial system APIs.
                       </p>
                     </NavigationMenuLink>
                   </li>
@@ -108,9 +107,7 @@ export function Header() {
                       href="#"
                       className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
-                      <div className="font-medium">
-                        Cloud & Infrastructure
-                      </div>
+                      <div className="font-medium">Cloud & Infrastructure</div>
                       <p className="text-sm text-muted-foreground leading-tight">
                         Cloud-native development and secure hosting solutions.
                       </p>
@@ -206,28 +203,25 @@ export function Header() {
             </SheetHeader>
             <div className="flex flex-col items-center space-y-4 p-6">
               <SheetClose asChild>
-                <Link href="/" className="text-lg font-semibold">Home</Link>
+                <Link href="/" className="text-lg font-semibold">
+                  Home
+                </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/about" className="text-lg font-semibold">About</Link>
+                <Link href="/about" className="text-lg font-semibold">
+                  About
+                </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/contact" className="text-lg font-semibold">Contact</Link>
+                <Link href="/contact" className="text-lg font-semibold">
+                  Contact
+                </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/blog" className="text-lg font-semibold">Blogs</Link>
+                <Link href="/blog" className="text-lg font-semibold">
+                  Blogs
+                </Link>
               </SheetClose>
-              <div className="flex flex-col space-y-4 pt-4">
-                <Button
-                  variant="outline"
-                  className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
-                >
-                  Contact Sales
-                </Button>
-                <Button className="bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-200">
-                  Explore Solutions
-                </Button>
-              </div>
             </div>
           </SheetContent>
         </Sheet>

@@ -228,7 +228,7 @@ export default function Home() {
           </Badge>
           Digital Transformation Solutions →
         </Badge>
-        <h1 className="text-foreground text-5xl md:text-7xl font-bold leading-tight max-w-5xl text-balance">
+        <h1 className="text-foreground text-4xl sm:text-5xl md:text-7xl font-bold leading-tight max-w-5xl text-balance">
           Powering Zimbabwe&apos;s Digital Revolution
         </h1>
         <p className="text-muted-foreground text-lg md:text-xl mt-6 max-w-3xl text-pretty leading-relaxed">
