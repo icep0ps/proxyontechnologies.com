@@ -36,7 +36,7 @@ export function Header() {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center space-x-6">
+      <div className="hidden md:flex flex-1 justify-center items-center space-x-6">
         <NavigationMenu>
           <NavigationMenuList className="space-x-6">
             <NavigationMenuItem>
@@ -62,19 +62,17 @@ export function Header() {
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
-                    <NavigationMenuLink asChild>
-                      <a
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                        href="/"
-                      >
-                        <div className="mb-2 mt-4 text-lg font-medium">
-                          Proxyon Technologies
-                        </div>
-                        <p className="text-sm leading-tight text-muted-foreground">
-                          Powering Zimbabwe's digital revolution through
-                          innovative software solutions.
-                        </p>
-                      </a>
+                    <NavigationMenuLink
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      href="/"
+                    >
+                      <div className="mb-2 mt-4 text-lg font-medium">
+                        Proxyon Technologies
+                      </div>
+                      <p className="text-sm leading-tight text-muted-foreground">
+                        Powering Zimbabwe&apos;s digital revolution through
+                        innovative software solutions.
+                      </p>
                     </NavigationMenuLink>
                   </li>
                   <li>
@@ -178,17 +176,17 @@ export function Header() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex space-x-3">
-          <Button
-            variant="outline"
-            className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
-          >
-            Log in
-          </Button>
-          <Button className="bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-200">
-            Get Started
-          </Button>
-        </div>
+      </div>
+      <div className="hidden md:flex items-center space-x-3">
+        <Button
+          variant="outline"
+          className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
+        >
+          Contact Sales
+        </Button>
+        <Button className="bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-200">
+          Explore Solutions
+        </Button>
       </div>
 
       {/* Mobile Navigation */}
@@ -224,10 +222,10 @@ export function Header() {
                   variant="outline"
                   className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
                 >
-                  Log in
+                  Contact Sales
                 </Button>
                 <Button className="bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-200">
-                  Get Started
+                  Explore Solutions
                 </Button>
               </div>
             </div>

@@ -37,7 +37,7 @@ const faqs: Faq[] = [
     key: "faq-4",
     question: "How do we start working together?",
     answer:
-      "The first step is a discovery call where we discuss your goals and challenges. From there, we'''ll move to a detailed proposal, and upon agreement, we'''ll kick off the project with our dedicated team. Just reach out through our contact page to get started!.",
+      "The first step is a discovery call where we discuss your goals and challenges. From there, we&apos;ll move to a detailed proposal, and upon agreement, we&apos;ll kick off the project with our dedicated team. Just reach out through our contact page to get started!.",
   },
   {
     key: "faq-5",
@@ -55,10 +55,7 @@ export default function ContactPage() {
           Contact Us
         </h1>
         <p className="text-muted-foreground text-lg md:text-xl mt-6 max-w-3xl text-pretty leading-relaxed">
-          Whether you have a question about our services, want to discuss a
-          potential project, or just want to say hello, we'''d love to hear from
-          you. Fill out the form below, and a member of our team will get back
-          to you as soon as possible.
+          Whether you have a question about our services, want to discuss a potential project, or just want to say hello, we&apos;d love to hear from you. Fill out the form below, and a member of our team will get back to you as soon as possible.
         </p>
       </section>
 
@@ -71,7 +68,7 @@ export default function ContactPage() {
                 Contact Information
               </h2>
               <p className="text-muted-foreground text-lg">
-                Have any questions? We'''d love to hear from you.
+                Have any questions? We&apos;d love to hear from you.
               </p>
               <div className="space-y-6">
                 <div className="flex items-center gap-4">

@@ -63,66 +63,10 @@ type Blog = {
   date: string;
 };
 
-// Define a type for team members
-type TeamMember = {
-  key: string;
-  name: string;
-  role: string;
-  image: string;
-  isActive?: boolean;
-};
-
-const services: Service[] = [
-  {
-    key: "service-1",
-    href: "#",
-    icon: Code,
-    title: "Custom Software Development",
-    description:
-      "Tailored ERP, CRM, and web/mobile applications for your business needs.",
-    hasGlow: true,
-    status: "Live",
-    detail: "Enterprise-grade solutions",
-  },
-  {
-    key: "service-2",
-    href: "#",
-    icon: Cloud,
-    title: "Cloud & Infrastructure",
-    description:
-      "Cloud-native development, secure hosting, and data migration services.",
-    hasGlow: false,
-    status: "Live",
-    detail: "Scalable architecture",
-  },
-  {
-    key: "service-3",
-    href: "#",
-    icon: CreditCard,
-    title: "Digital Payments & FinTech",
-    description:
-      "Secure transaction platforms, wallet integrations, and financial APIs.",
-    hasGlow: false,
-    status: "Live",
-    detail: "End-to-end encrypted",
-  },
-  {
-    key: "service-4",
-    href: "#",
-    icon: Palette,
-    title: "UI/UX & Product Design",
-    description:
-      "Intuitive interface design, prototyping, and user research services.",
-    hasGlow: false,
-    status: "Live",
-    detail: "User-centered design",
-  },
-];
-
 const projects: Project[] = [
   {
     key: "agrilease",
-    image: "/agricultural-equipment-rental-platform-interface.jpg",
+    image: "/agricultural-equipment-rental-rental-platform-interface.jpg",
     title: "Agrilease",
     description:
       "An intelligent agricultural equipment rental and marketplace platform empowering smallholder farmers across Zimbabwe and Southern Africa with access to mechanization.",
@@ -222,46 +166,54 @@ const faqs: Faq[] = [
   },
 ];
 
-// Create an array for your team members
-const teamMembers: TeamMember[] = [
+const services: Service[] = [
   {
-    key: "member-1",
-    name: "Natalie Carter",
-    role: "Customer Success Agent",
-    image: "/avatars/natalie-carter.jpg", // Make sure you have this image in your public/avatars folder
+    key: "custom-software",
+    href: "/services/custom-software",
+    icon: Code,
+    title: "Custom Software Development",
+    description:
+      "We build bespoke software solutions tailored to your specific business needs, from web and mobile apps to enterprise systems.",
+    hasGlow: true,
+    status: "New",
+    detail: "Starts at $5,000",
   },
   {
-    key: "member-2",
-    name: "Lucy Gray",
-    role: "Customer Success Lead",
-    image: "/avatars/lucy-gray.jpg", // This member will have the active state styling
-    isActive: true,
+    key: "digital-transformation",
+    href: "/services/digital-transformation",
+    icon: Cloud,
+    title: "Digital Transformation",
+    description:
+      "We help you modernize your business processes and infrastructure to stay competitive in the digital age.",
+    hasGlow: false,
+    status: "Live",
+    detail: "Consultation-based",
   },
   {
-    key: "member-3",
-    name: "Olivia Martinez",
-    role: "Payments Support",
-    image: "/avatars/olivia-martinez.jpg",
+    key: "fintech-solutions",
+    href: "/services/fintech-solutions",
+    icon: CreditCard,
+    title: "Fintech Solutions",
+    description:
+      "We create innovative financial technology solutions to improve financial inclusion and efficiency in Africa.",
+    hasGlow: false,
+    status: "Live",
+    detail: "Partnership-based",
   },
   {
-    key: "member-4",
-    name: "Richard Mills",
-    role: "Payments Support",
-    image: "/avatars/richard-mills.jpg",
-  },
-  {
-    key: "member-5",
-    name: "Sophie Chamberlain",
-    role: "Specialized Support",
-    image: "/avatars/sophie-chamberlain.jpg",
-  },
-  {
-    key: "member-6",
-    name: "Erik Anders",
-    role: "VP of Customer Support",
-    image: "/avatars/erik-anders.jpg",
+    key: "agritech-platforms",
+    href: "/services/agritech-platforms",
+    icon: Palette,
+    title: "Agritech Platforms",
+    description:
+      "We develop technology platforms to optimize agricultural value chains and empower farmers in the SADC region.",
+    hasGlow: false,
+    status: "Beta",
+    detail: "Pilot programs available",
   },
 ];
+
+
 
 export default function Home() {
   return (
@@ -339,7 +291,7 @@ export default function Home() {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="text-foreground hover:bg-primary hover:text-primary-foreground transition-colors bg-transparent"
+                      className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
                     >
                       <ArrowUpRight className="h-5 w-5" />
                     </Button>

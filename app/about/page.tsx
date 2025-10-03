@@ -1,7 +1,6 @@
 import type React from "react";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowUpRight,
   Building,
   Users,
   Lightbulb,
@@ -9,7 +8,6 @@ import {
   Linkedin,
   Github,
 } from "lucide-react";
-import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
@@ -230,11 +228,7 @@ export default function AboutPage() {
                   />
                 </div>
                 <div
-                  className={`p-3 mt-2 rounded-lg transition-all duration-300 ${
-                    member.isActive
-                      ? "bg-muted border border-border"
-                      : "group-hover:bg-muted"
-                  }`}
+                  className={`p-3 mt-2 rounded-lg transition-all duration-300 group-hover:bg-muted`}
                 >
                   <h3 className="font-semibold text-foreground">
                     {member.name}
