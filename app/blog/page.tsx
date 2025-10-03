@@ -118,9 +118,13 @@ export default function BlogPage() {
     return new Date(current.date) > new Date(latest.date) ? current : latest;
   });
 
-  const filteredBlogs = blogs.filter(
+  const filteredBlogsDesktop = blogs.filter(
     (blog) =>
       (filter === "All" || blog.category === filter) && blog.key !== latestBlog.key
+  );
+
+  const filteredBlogsMobile = blogs.filter(
+    (blog) => filter === "All" || blog.category === filter
   );
 
   return (
@@ -134,8 +138,8 @@ export default function BlogPage() {
         </p>
       </section>
 
-      {/* Latest Blog Spotlight */}
-      <section className="bg-background text-foreground py-10 px-6">
+      {/* Latest Blog Spotlight - Desktop */}
+      <section className="hidden md:block bg-background text-foreground py-10 px-6">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-2">Latest Post</h2>
           <p className="text-muted-foreground text-lg mb-8">The latest article from our team of experts.</p>
@@ -198,8 +202,54 @@ export default function BlogPage() {
               </Button>
             ))}
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {filteredBlogs.map((blog) => (
+          {/* Blog Grid - Desktop */}
+          <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredBlogsDesktop.map((blog) => (
+              <Link href={`/blog/${blog.slug}`} key={blog.key} className="flex">
+                <Card className="rounded-3xl p-0 hover:shadow-lg transition-shadow duration-300 border-border/50 overflow-hidden flex flex-col w-full">
+                  <div className="relative w-full h-48 bg-gradient-to-br from-primary/20 to-primary/5">
+                    <Image
+                      src={blog.image || "/placeholder.svg"}
+                      alt={`${blog.title} blog post image`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <CardHeader className="px-0 pb-4">
+                      <Badge className="mb-2">{blog.category}</Badge>
+                      <CardTitle className="text-xl font-bold mb-2">
+                        {blog.title}
+                      </CardTitle>
+                      <CardDescription className="text-sm text-muted-foreground leading-relaxed">
+                        {blog.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="px-0 pb-0 mt-auto">
+                      <div className="flex items-center space-x-3 mt-4">
+                        <Avatar>
+                          <AvatarImage
+                            src={blog.authorImage || "/placeholder.svg"}
+                            alt={blog.author}
+                          />
+                          <AvatarFallback>{blog.author.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-semibold text-xs">{blog.author}</p>
+                          <p className="text-muted-foreground text-xs">
+                            {blog.date}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+          {/* Blog Grid - Mobile */}
+          <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredBlogsMobile.map((blog) => (
               <Link href={`/blog/${blog.slug}`} key={blog.key} className="flex">
                 <Card className="rounded-3xl p-0 hover:shadow-lg transition-shadow duration-300 border-border/50 overflow-hidden flex flex-col w-full">
                   <div className="relative w-full h-48 bg-gradient-to-br from-primary/20 to-primary/5">
