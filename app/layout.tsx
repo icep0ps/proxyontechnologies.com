@@ -12,7 +12,8 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { CreditCard, Tractor } from "lucide-react";
+import { CreditCard, Tractor, ArrowUpRight } from "lucide-react";
+import { Footer } from "@/components/ui/footer";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -168,7 +169,7 @@ export default function RootLayout({
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link
-                  href="/"
+                  href="/contact"
                   className="inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
                 >
                   Contact
@@ -176,10 +177,10 @@ export default function RootLayout({
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link
-                  href="/"
+                  href="/blog"
                   className="inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
                 >
-                  Blog
+                  Blogs
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -197,6 +198,7 @@ export default function RootLayout({
           </div>
         </div>
         {children}
+        <Footer />
       </body>
     </html>
   );

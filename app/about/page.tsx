@@ -1,11 +1,7 @@
 import type React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
   ArrowUpRight,
-  Zap,
-  Heart,
-  Eye,
   Building,
   Users,
   Lightbulb,
@@ -16,7 +12,6 @@ import {
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 
 type TeamMember = {
   key: string;
@@ -34,9 +29,9 @@ type TeamMember = {
 const teamMembers: TeamMember[] = [
   {
     key: "team-1",
-    name: "John Doe",
-    role: "CEO & Founder",
-    initials: "JD",
+    name: "Courtney Taga",
+    role: "Co-Founder (CO-Founder)", // Updated role
+    initials: "CT",
     image: "/avatars/john-doe.jpg",
     socials: [
       { name: "Twitter", url: "#", icon: Twitter },
@@ -46,9 +41,9 @@ const teamMembers: TeamMember[] = [
   },
   {
     key: "team-2",
-    name: "Jane Smith",
-    role: "CTO",
-    initials: "JS",
+    name: "Tapiwa Mukoyi",
+    role: "Chief Technology Officer (CTO)", // Updated role
+    initials: "TM",
     image: "/avatars/jane-smith.jpg",
     socials: [
       { name: "Twitter", url: "#", icon: Twitter },
@@ -58,9 +53,9 @@ const teamMembers: TeamMember[] = [
   },
   {
     key: "team-3",
-    name: "Peter Jones",
-    role: "Lead Developer",
-    initials: "PJ",
+    name: "Tanaka Gombarume",
+    role: "Chief Financial Officer (CFO)", // Updated role
+    initials: "TG",
     image: "/avatars/peter-jones.jpg",
     socials: [
       { name: "Twitter", url: "#", icon: Twitter },
@@ -70,8 +65,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     key: "team-4",
-    name: "Sarah Williams",
-    role: "UI/UX Designer",
+    name: "Leopold Gogode",
+    role: "Chief Operating Officer (COO)", // Updated role
     initials: "SW",
     image: "/avatars/sarah-williams.jpg",
     socials: [
@@ -80,8 +75,19 @@ const teamMembers: TeamMember[] = [
       { name: "GitHub", url: "#", icon: Github },
     ],
   },
+  {
+    key: "team-5",
+    name: "Tinotenda Mukuhwa",
+    role: "Chief Information Officer (CIO)", // Updated role
+    initials: "TM",
+    image: "/avatars/sarah-williams.jpg",
+    socials: [
+      { name: "Twitter", url: "#", icon: Twitter },
+      { name: "LinkedIn", url: "#", icon: Linkedin },
+      { name: "GitHub", url: "#", icon: Github },
+    ],
+  },
 ];
-
 export default function AboutPage() {
   return (
     <main className="container mx-auto">
@@ -195,7 +201,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* --- START: NEW MEET OUR TEAM SECTION --- */}
       <section className="bg-background text-foreground py-20 px-6">
         <div className="container">
           <Badge
@@ -241,7 +246,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      {/* --- END: NEW MEET OUR TEAM SECTION --- */}
 
       <section className="bg-background text-foreground py-20 px-6">
         <div className="container mx-auto">
@@ -269,205 +273,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer Section */}
-      <footer className="bg-background text-muted-foreground pt-16 pb-6">
-        <div className="container mx-auto space-y-12">
-          {/* Top section: CTA */}
-          <div className="flex justify-between items-center border-y border-white/30 py-10">
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight text-foreground text-balance">
-              Let's work together
-            </h2>
 
-            <ArrowUpRight className="h-20 w-20 text-primary" />
-          </div>
-
-          {/* Main footer content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            <div className="flex flex-col items-start space-y-4">
-              <div className="text-foreground text-xl font-bold">
-                Proxyon Technologies
-              </div>
-              <div className="text-sm space-y-1">
-                <p>Suite 2, Block C, Highlands Offices</p>
-                <p>Harare, Zimbabwe</p>
-                <p>+263 77 123 4567</p>
-                <p>info@proxyon.tech</p>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-foreground font-semibold mb-4">Services</h4>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Custom Software Development
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Cloud & Infrastructure
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Digital Payments & FinTech
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    UI/UX & Product Design
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Data Analytics & Intelligence
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-foreground font-semibold mb-4">Solutions</h4>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Agrilease
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    NeX Pay
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-foreground font-semibold mb-4">Company</h4>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Team
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Press
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-foreground font-semibold mb-4">Connect</h4>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Contact Sales
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Support
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Twitter
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    LinkedIn
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Copyright and legal links */}
-          <div className="flex flex-col sm:flex-row justify-between items-center text-xs border-t border-white/30 pt-6">
-            <p>
-              © {new Date().getFullYear()} Proxyon Technologies. All rights
-              reserved.
-            </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 sm:mt-0">
-              <Link href="#" className="hover:text-primary transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="#" className="hover:text-primary transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="hover:text-primary transition-colors">
-                Cookie Policy
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }
