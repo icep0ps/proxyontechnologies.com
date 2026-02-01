@@ -22,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${sora.variable} antialiased dark`}>
+      <body
+        className={`${sora.variable} antialiased dark max-w-[1920px] container mx-auto`}
+      >
         <Header />
         {children}
         <Footer />
