@@ -11,6 +11,9 @@ import {
   CreditCard,
   type LucideIcon,
   Plus,
+  Tractor,
+  Store,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -27,6 +30,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Beams from "@/components/Beams";
+import { cn } from "@/lib/utils";
+import * as Marquee from "@/components/ui/marquee";
 
 type Faq = {
   key: string;
@@ -51,6 +57,7 @@ type Project = {
   title: string;
   description: string;
   stats: Map<string, React.ReactNode>;
+  logo: string;
 };
 
 type Blog = {
@@ -68,6 +75,7 @@ const projects: Project[] = [
     key: "agrilease",
     image: "/agricultural-equipment-rental-rental-platform-interface.jpg",
     title: "Agrilease",
+    tagline: "Equipment Rental Marketplace",
     description:
       "An intelligent agricultural equipment rental and marketplace platform empowering smallholder farmers across Zimbabwe and Southern Africa with access to mechanization.",
     stats: new Map([
@@ -80,23 +88,26 @@ const projects: Project[] = [
       ["Market", <span>Zimbabwe & SADC</span>],
       ["Impact", <span>Democratizing farm mechanization</span>],
     ]),
+    logo: "/logos/agrilease-logo.png",
   },
   {
-    key: "nexpay",
+    key: "payce",
     image: "/mobile-payment-app-interface-with-nfc-and-qr-code.jpg",
-    title: "NeX Pay",
+    title: "Payce",
+    tagline: "Point of Sale for SMEs",
     description:
-      "A revolutionary cardless, mobile-based money transfer system enabling fast, secure digital payments without traditional banking infrastructure across Africa.",
+      "A comprehensive POS system for SMEs with dedicated mobile and desktop applications designed to streamline business operations.",
     stats: new Map([
       [
         "Status",
-        <Badge key="status-nexpay" variant="default">
+        <Badge key="status-payce" variant="default">
           Beta
         </Badge>,
       ],
-      ["Technology", <span>NFC + QR Payments</span>],
-      ["Target", <span>Pan-African expansion</span>],
+      ["Platform", <span>Mobile & Desktop App</span>],
+      ["Target", <span>Small & Medium Enterprises</span>],
     ]),
+    logo: "/logos/payce-logo.svg",
   },
 ];
 
@@ -166,91 +177,100 @@ const faqs: Faq[] = [
   },
 ];
 
-const services: Service[] = [
+type Stat = {
+  key: string;
+  label: string;
+  value: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+const stats: Stat[] = [
   {
-    key: "custom-software",
-    href: "/services/custom-software",
-    icon: Code,
-    title: "Custom Software Development",
-    description:
-      "We build bespoke software solutions tailored to your specific business needs, from web and mobile apps to enterprise systems.",
-    hasGlow: true,
-    status: "New",
-    detail: "Starts at $5,000",
+    key: "farmers",
+    label: "Farmers Empowered",
+    value: "15,000+",
+    description: "Providing access to mechanization and credit through Agrilease.",
+    icon: Tractor,
   },
   {
-    key: "digital-transformation",
-    href: "/services/digital-transformation",
-    icon: Cloud,
-    title: "Digital Transformation",
-    description:
-      "We help you modernize your business processes and infrastructure to stay competitive in the digital age.",
-    hasGlow: false,
-    status: "Live",
-    detail: "Consultation-based",
-  },
-  {
-    key: "fintech-solutions",
-    href: "/services/fintech-solutions",
+    key: "transactions",
+    label: "Digital Transactions",
+    value: "2.5M+",
+    description: "Secure payments facilitated through our Payce POS infrastructure.",
     icon: CreditCard,
-    title: "Fintech Solutions",
-    description:
-      "We create innovative financial technology solutions to improve financial inclusion and efficiency in Africa.",
-    hasGlow: false,
-    status: "Live",
-    detail: "Partnership-based",
   },
   {
-    key: "agritech-platforms",
-    href: "/services/agritech-platforms",
-    icon: Palette,
-    title: "Agritech Platforms",
-    description:
-      "We develop technology platforms to optimize agricultural value chains and empower farmers in the SADC region.",
-    hasGlow: false,
-    status: "Beta",
-    detail: "Pilot programs available",
+    key: "smes",
+    label: "SME Partners",
+    value: "500+",
+    description: "Businesses optimizing their operations with our digital tools.",
+    icon: Store,
+  },
+  {
+    key: "market",
+    label: "Market Presence",
+    value: "3 Countries",
+    description: "Expanding our footprint across the SADC region.",
+    icon: Globe,
   },
 ];
-
-
 
 export default function Home() {
   return (
     <main className="container mx-auto">
-      <section className="min-h-screen bg-background text-center flex flex-col justify-center items-center px-8 py-16">
-        <Badge
-          variant="outline"
-          className="bg-primary font-semibold text-sm py-2 px-4 rounded-full mb-6 transition-colors border-none"
-        >
-          <Badge key="new-badge" variant="secondary" className="mr-2">
-            New
-          </Badge>
-          Digital Transformation Solutions →
-        </Badge>
-        <h1 className="text-foreground text-4xl sm:text-5xl md:text-7xl font-bold leading-tight max-w-5xl text-balance">
-          Powering Zimbabwe&apos;s Digital Revolution
-        </h1>
-        <p className="text-muted-foreground text-lg md:text-xl mt-6 max-w-3xl text-pretty leading-relaxed">
-          We harness innovation to provide cutting-edge software solutions that
-          empower businesses to adapt and thrive in the ever-evolving digital
-          realm across Southern Africa.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 mt-10">
-          <Button className="bg-primary text-primary-foreground font-semibold py-6 px-8 rounded-full hover:bg-primary/90 transition-all duration-200 text-base">
-            Explore Our Solutions <ArrowRight className="ml-2" />
-          </Button>
-          <Button
+      <section className="relative w-full bg-background text-center flex flex-col justify-center items-center px-8 py-24 overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <Beams
+            beamWidth={5}
+            beamHeight={40}
+            beamNumber={20}
+            lightColor="#58bbff"
+            intensity={1.5}
+            speed={8.6}
+            noiseIntensity={0}
+            scale={0.15}
+            rotation={360}
+          />
+          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,#000000_120%)] pointer-events-none opacity-40" />
+        </div>
+        <div className="relative z-10 flex flex-col items-center">
+          <Badge
             variant="outline"
-            className="text-foreground border-border py-6 px-8 rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200 text-base"
+            className="bg-primary font-semibold text-sm py-2 px-4 rounded-full mb-6 transition-colors border-none"
           >
-            Contact Sales <ArrowRight className="ml-2" />
-          </Button>
+            <Badge key="new-badge" variant="secondary" className="mr-2">
+              New
+            </Badge>
+            Digital Transformation Solutions →
+          </Badge>
+          <h1 className="text-foreground text-4xl sm:text-5xl md:text-7xl font-bold leading-tight max-w-5xl text-balance mx-auto">
+            Powering Zimbabwe&apos;s Digital Revolution
+          </h1>
+          <p className="text-muted-foreground text-lg md:text-xl mt-6 max-w-3xl text-pretty leading-relaxed mx-auto">
+            We harness innovation to provide cutting-edge software solutions
+            that empower businesses to adapt and thrive in the ever-evolving
+            digital realm across Southern Africa.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
+            <Button className="bg-primary text-primary-foreground font-semibold py-6 px-8 rounded-full hover:bg-primary/90 transition-all duration-200 text-base">
+              Explore Our Solutions <ArrowRight className="ml-2" />
+            </Button>
+            <Button
+              variant="outline"
+              className="text-foreground border-border py-6 px-8 rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200 text-base"
+            >
+              Contact Sales <ArrowRight className="ml-2" />
+            </Button>
+          </div>
         </div>
       </section>
+
       <section className="bg-card text-foreground py-20 px-6 space-y-8 rounded-3xl my-8">
         <div className="container mx-auto">
-          <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center mb-16">
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
               <Badge variant="outline" className="bg-background/50">
                 Our Subsidiaries
@@ -271,37 +291,36 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {projects.map((project) => (
-              <Card
+              <div
                 key={project.key}
-                className="rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 border-border/50"
+                className="p-8 flex flex-col justify-between"
               >
-                <div className="relative w-full h-56 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl overflow-hidden mb-6">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={`${project.title} platform interface`}
-                    fill
-                    className="object-cover"
-                  />
+                <div>
+                  <CardHeader className="px-0 pb-4 pt-0">
+                    <div className="flex items-center gap-4 mb-4">
+                      <Image
+                        src={project.logo}
+                        alt={`${project.title} logo`}
+                        width={64}
+                        height={64}
+                        className="object-contain flex-shrink-0"
+                      />
+                      <div>
+                        <CardTitle className="text-2xl font-bold">
+                          {project.title}
+                        </CardTitle>
+                        <p className="text-sm font-medium text-primary mt-1">
+                          {project.tagline}
+                        </p>
+                      </div>
+                    </div>
+                    <CardDescription className="text-base text-muted-foreground mt-2 leading-relaxed">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
                 </div>
-                <CardHeader className="px-0 pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-2xl font-bold">
-                      {project.title}
-                    </CardTitle>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="text-foreground border-border rounded-full bg-transparent hover:bg-foreground hover:text-background transition-all duration-200"
-                    >
-                      <ArrowUpRight className="h-5 w-5" />
-                    </Button>
-                  </div>
-                  <CardDescription className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                    {project.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="px-0 pb-0">
-                  <div className="space-y-3">
+                <CardContent className="px-0 pb-0 mt-4">
+                  <div className="space-y-3 mb-8">
                     {Array.from(project.stats.entries()).map(
                       ([label, value]) => (
                         <div
@@ -318,107 +337,128 @@ export default function Home() {
                       ),
                     )}
                   </div>
+                  <Button variant="outline" size="icon" className="rounded-2xl border-border/60 hover:bg-foreground hover:text-background transition-all duration-200 h-12 w-12 group/btn">
+                    <ArrowUpRight className="h-6 w-6 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                  </Button>
                 </CardContent>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-background text-foreground py-20 px-6">
-        <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column: Image */}
-          <div className="relative h-[500px] w-full overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
-            <Image
-              src="/developer.jpg"
-              alt="A software developer working at a desk"
-              fill
-              style={{ objectFit: "cover" }}
-              className="group-hover:scale-105 transition-transform duration-500 "
-            />
-          </div>
-          {/* Right Column: Services */}
-          <div>
-            <div className="max-w-3xl mb-12">
-              <Badge variant="outline" className="mb-4">
-                Our Services
+      <section className="pt-32 pb-12 bg-background px-6 relative overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="container mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div className="max-w-xl">
+              <Badge variant="outline" className="mb-6 bg-background/50">
+                Our Global Impact
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-                Comprehensive Digital Solutions
+              <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-balance leading-[1.1]">
+                Scalable Solutions. <br />
+                <span className="text-muted-foreground/40 text-4xl md:text-5xl">Real World Results.</span>
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                From custom software development to digital transformation
-                consulting, we provide end-to-end technology solutions that
-                drive business growth and innovation.
+            </div>
+            <p className="text-muted-foreground text-lg max-w-sm leading-relaxed border-l border-border/40 pl-8 hidden md:block">
+              We build technology that transforms industries and empowers people across the African continent.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border-y border-border/40">
+            {stats.map((stat, index) => (
+              <div
+                key={stat.key}
+                className={cn(
+                  "relative p-12 group transition-all duration-500 hover:bg-primary/[0.02]",
+                  index !== stats.length - 1 && "lg:border-r border-border/40",
+                  index % 2 === 0 && "sm:border-r lg:border-r-0 border-border/40",
+                  index < 2 && "border-b lg:border-b-0 border-border/40"
+                )}
+              >
+                {/* Subtle hover indicator */}
+                <div className="absolute top-0 left-0 w-1 h-0 bg-primary transition-all duration-500 group-hover:h-full" />
+                
+                <div className="space-y-6">
+                  <span className="text-xs font-bold text-primary/40 uppercase tracking-[0.2em]">
+                    0{index + 1} {stat.label.split(' ')[0]}
+                  </span>
+                  
+                  <div className="space-y-2">
+                    <h3 className="text-6xl font-bold tracking-tighter group-hover:text-primary transition-colors duration-500">
+                      {stat.value}
+                    </h3>
+                    <p className="text-lg font-semibold text-foreground">
+                      {stat.label}
+                    </p>
+                  </div>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-2 group-hover:translate-y-0">
+                    {stat.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pt-12 pb-24 bg-background relative overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(88,187,255,0.03)_0%,transparent_70%)] pointer-events-none" />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-5 gap-16 items-center">
+            {/* Typography Column */}
+            <div className="lg:col-span-2 space-y-6">
+              <Badge variant="outline" className="bg-background/50">
+                Our Ecosystem
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+                Trusted by the world&apos;s most <span className="text-muted-foreground/40">ambitious teams.</span>
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
+                We collaborate with global leaders and emerging startups to build the next generation of digital infrastructure across Africa.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 border border-border/20 rounded-2xl overflow-hidden">
-              {services.map((service, index) => (
-                <Link
-                  href={service.href}
-                  key={service.key}
-                  className={`group relative overflow-hidden transition-all duration-300 hover:bg-card/50 ${
-                    index % 2 !== 1 ? "sm:border-r border-border/20" : ""
-                  } ${
-                    index < services.length - 2
-                      ? "border-b border-border/20"
-                      : ""
-                  }`}
-                >
-                  <div className="p-8 transition-colors flex flex-col justify-between items-start relative z-10 h-full min-h-[280px]">
-                    {/* Glow effect */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent transition-opacity duration-300 ${
-                        service.hasGlow
-                          ? "opacity-100"
-                          : "opacity-0 group-hover:opacity-100"
-                      }`}
-                    />
 
-                    {/* Top content */}
-                    <div className="relative z-20 w-full">
-                      <div className="flex items-center justify-between mb-6">
-                        <Button
-                          variant="outline"
-                          className="rounded-xl h-12 w-12 p-0 flex items-center justify-center border-border/50 hover:border-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 bg-transparent"
-                          aria-hidden="true"
-                        >
-                          <service.icon size={20} />
-                        </Button>
-                        <ArrowUpRight
-                          size={18}
-                          strokeWidth={2}
-                          className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 text-muted-foreground group-hover:text-primary"
-                        />
-                      </div>
-                      <h4 className="font-semibold text-lg leading-tight mb-3 text-balance">
-                        {service.title}
-                      </h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    {/* Bottom content */}
-                    <div className="relative z-20 w-full mt-6">
-                      <div className="border-t border-border/20 pt-4 flex justify-between items-center text-xs">
-                        <Badge
-                          key={`status-${service.key}`}
-                          variant={
-                            service.status === "New" ? "default" : "secondary"
-                          }
-                          className="px-3 py-1 text-xs font-medium"
-                        >
-                          {service.status}
-                        </Badge>
-                        <span className="text-muted-foreground text-right font-medium">
-                          {service.detail}
-                        </span>
-                      </div>
+            {/* Logo Grid Column */}
+            <div className="lg:col-span-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 border border-border/40 rounded-3xl overflow-hidden bg-card/30 backdrop-blur-sm">
+                {[
+                  "/logos/logoipsum-213.svg",
+                  "/logos/logoipsum-220.svg",
+                  "/logos/logoipsum-258.svg",
+                  "/logos/logoipsum-352.svg",
+                  "/logos/logoipsum-358.svg",
+                  "/logos/logoipsum-381.svg",
+                  "/logos/logoipsum-396.svg",
+                  "/logos/logoipsum-404.svg",
+                ].map((logo, index) => (
+                  <div 
+                    key={index} 
+                    className={cn(
+                      "flex items-center justify-center p-12 border-border/40 transition-colors duration-300 hover:bg-primary/5 group",
+                      index % 2 !== 1 && "border-r", // Mobile right border
+                      index % 4 !== 3 && "sm:border-r", // Desktop right border
+                      index < 6 && "border-b", // Mobile bottom border (for 8 items)
+                      index < 4 && "sm:border-b" // Desktop bottom border
+                    )}
+                  >
+                    <div className="h-8 w-28 relative">
+                      <Image
+                        src={logo}
+                        alt={`Partner Logo ${index + 1}`}
+                        fill
+                        className="object-contain opacity-30 group-hover:opacity-100 transition-all duration-500 grayscale group-hover:grayscale-0 dark:brightness-200"
+                      />
                     </div>
                   </div>
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -521,8 +561,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-
     </main>
   );
 }

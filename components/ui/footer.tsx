@@ -15,7 +15,7 @@ export function Footer() {
         </div>
 
         {/* Main footer content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="flex flex-col items-start space-y-4">
             <div className="text-foreground text-xl font-bold">
               Proxyon Technologies
@@ -26,52 +26,6 @@ export function Footer() {
               <p>+263 77 123 4567</p>
               <p>info@proxyon.tech</p>
             </div>
-          </div>
-
-          <div>
-            <h4 className="text-foreground font-semibold mb-4">Services</h4>
-            <ul className="text-sm space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-primary transition-colors"
-                >
-                  Custom Software Development
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-primary transition-colors"
-                >
-                  Cloud & Infrastructure
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-primary transition-colors"
-                >
-                  Digital Payments & FinTech
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-primary transition-colors"
-                >
-                  UI/UX & Product Design
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-primary transition-colors"
-                >
-                  Data Analytics & Intelligence
-                </Link>
-              </li>
-            </ul>
           </div>
 
           <div>
@@ -90,7 +44,7 @@ export function Footer() {
                   href="#"
                   className="hover:text-primary transition-colors"
                 >
-                  NeX Pay
+                  Payce
                 </Link>
               </li>
             </ul>
