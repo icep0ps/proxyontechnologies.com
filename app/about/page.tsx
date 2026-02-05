@@ -169,6 +169,55 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-5 gap-16 items-center">
+            {/* Text Column */}
+            <div className="lg:col-span-2 space-y-6">
+              <Badge variant="outline" className="bg-background/50">
+                Our Ecosystem
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+                Trusted by the world&apos;s most ambitious teams.
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                We collaborate with global leaders and emerging startups to build the next generation of digital infrastructure across Africa.
+              </p>
+            </div>
+
+            {/* Logo Grid */}
+            <div className="lg:col-span-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border/40 rounded-2xl overflow-hidden">
+                {[
+                  "/logos/logoipsum-213.svg",
+                  "/logos/logoipsum-220.svg",
+                  "/logos/logoipsum-258.svg",
+                  "/logos/logoipsum-352.svg",
+                  "/logos/logoipsum-358.svg",
+                  "/logos/logoipsum-381.svg",
+                  "/logos/logoipsum-396.svg",
+                  "/logos/logoipsum-404.svg",
+                ].map((logo, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-center p-8 md:p-10 bg-background hover:bg-card transition-colors duration-300 group"
+                  >
+                    <div className="h-8 w-24 md:h-10 md:w-32 relative">
+                      <Image
+                        src={logo}
+                        alt={`Partner Logo ${index + 1}`}
+                        fill
+                        className="object-contain opacity-40 group-hover:opacity-100 transition-opacity duration-300 grayscale group-hover:grayscale-0 dark:brightness-200"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-background text-foreground py-20 px-6">
         <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative h-[500px] w-full overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
