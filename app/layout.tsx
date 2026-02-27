@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Sora } from "next/font/google";
+import { Sora, Outfit } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
+
+const outfit = Outfit({subsets:['latin'],variable:'--font-sans'});
 
 const sora = Sora({
   variable: "--font-sora",
@@ -21,9 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={outfit.variable}>
       <body
-        className={`${sora.variable} antialiased dark max-w-[1920px] container mx-auto`}
+        className={`${sora.variable} antialiased dark max-w-[1920px] mx-auto`}
       >
         <Header />
         {children}

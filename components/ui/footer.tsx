@@ -22,7 +22,7 @@ export function Footer() {
         <div className="absolute inset-0 bg-background/60" />
       </div>
 
-      <div className="container mx-auto relative z-10">
+      <div className="md:max-w-[75%] mx-auto relative z-10">
         {/* Top section: Logo and CTA */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 pb-16 border-b border-foreground/20">
           <div className="space-y-6">
