@@ -1,288 +1,280 @@
 import type React from "react";
-import { Badge } from "@/components/ui/badge";
-import {
-  Building,
-  Users,
-  Lightbulb,
-  Twitter,
-  Linkedin,
-  Github,
-} from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import * as Marquee from "@/components/ui/marquee";
+import { Building, Users, Lightbulb } from "lucide-react";
 import Image from "next/image";
 
 type TeamMember = {
   key: string;
   name: string;
   role: string;
-  initials: string;
   image: string;
-  socials: {
-    name: string;
-    url: string;
-    icon: React.ElementType;
-  }[];
 };
 
 const teamMembers: TeamMember[] = [
   {
     key: "team-1",
     name: "Courtney Taga",
-    role: "Co-Founder (CO-Founder)", // Updated role
-    initials: "CT",
+    role: "Co-Founder",
     image: "/avatars/john-doe.jpg",
-    socials: [
-      { name: "Twitter", url: "#", icon: Twitter },
-      { name: "LinkedIn", url: "#", icon: Linkedin },
-      { name: "GitHub", url: "#", icon: Github },
-    ],
   },
   {
     key: "team-2",
     name: "Tapiwa Mukoyi",
-    role: "Chief Technology Officer (CTO)", // Updated role
-    initials: "TM",
+    role: "Chief Technology Officer",
     image: "/avatars/jane-smith.jpg",
-    socials: [
-      { name: "Twitter", url: "#", icon: Twitter },
-      { name: "LinkedIn", url: "#", icon: Linkedin },
-      { name: "GitHub", url: "#", icon: Github },
-    ],
   },
   {
     key: "team-3",
     name: "Tanaka Gombarume",
-    role: "Chief Financial Officer (CFO)", // Updated role
-    initials: "TG",
+    role: "Chief Financial Officer",
     image: "/avatars/peter-jones.jpg",
-    socials: [
-      { name: "Twitter", url: "#", icon: Twitter },
-      { name: "LinkedIn", url: "#", icon: Linkedin },
-      { name: "GitHub", url: "#", icon: Github },
-    ],
   },
   {
     key: "team-4",
     name: "Leopold Gogode",
-    role: "Chief Operating Officer (COO)", // Updated role
-    initials: "SW",
+    role: "Chief Operating Officer",
     image: "/avatars/sarah-williams.jpg",
-    socials: [
-      { name: "Twitter", url: "#", icon: Twitter },
-      { name: "LinkedIn", url: "#", icon: Linkedin },
-      { name: "GitHub", url: "#", icon: Github },
-    ],
   },
   {
     key: "team-5",
     name: "Tinotenda Mukuhwa",
-    role: "Chief Information Officer (CIO)", // Updated role
-    initials: "TM",
+    role: "Chief Information Officer",
     image: "/avatars/sarah-williams.jpg",
-    socials: [
-      { name: "Twitter", url: "#", icon: Twitter },
-      { name: "LinkedIn", url: "#", icon: Linkedin },
-      { name: "GitHub", url: "#", icon: Github },
-    ],
   },
 ];
+
+const milestones = [
+  {
+    key: "founded",
+    date: "Jan 2020",
+    label: "Founded",
+    description:
+      "Proxyon Technologies was born in Harare with a mission to drive digital transformation across Africa.",
+    icon: Building,
+  },
+  {
+    key: "agrilease-launch",
+    date: "Mar 2021",
+    label: "Agrilease Goes Live",
+    description:
+      "Our first platform enters the market, connecting smallholder farmers with equipment rental services.",
+    icon: Lightbulb,
+  },
+  {
+    key: "team",
+    date: "Aug 2022",
+    label: "Team Grows",
+    description:
+      "Developers, designers, and strategists join the mission, bringing diverse expertise under one roof.",
+    icon: Users,
+  },
+  {
+    key: "payce",
+    date: "Jun 2023",
+    label: "Payce Launches",
+    description:
+      "Payce enters beta — a full-featured POS system built for SMEs on mobile and desktop.",
+    icon: Building,
+  },
+  {
+    key: "products",
+    date: "2024 — Now",
+    label: "Products Shipped",
+    description:
+      "A growing portfolio of live solutions spanning AgriTech, FinTech, and enterprise software.",
+    icon: Lightbulb,
+  },
+];
+
+const partners = [
+  "Econet Wireless",
+  "Steward Bank",
+  "Old Mutual Zimbabwe",
+  "CBZ Holdings",
+  "Cassava Smartech",
+  "ZB Financial Holdings",
+  "Innbucks",
+  "NetOne",
+];
+
 export default function AboutPage() {
   return (
-    <main className="container mx-auto">
-      <section className="bg-background text-center flex flex-col justify-center items-center px-8 py-16">
-        <h1 className="text-foreground text-5xl md:text-7xl font-bold leading-tight max-w-5xl text-balance">
-          About Proxyon Technologies
-        </h1>
-        <p className="text-muted-foreground text-lg md:text-xl mt-6 max-w-3xl text-pretty leading-relaxed">
-          We are a team of passionate developers, designers, and strategists
-          dedicated to building innovative software solutions that drive
-          progress and empower businesses in Africa.
-        </p>
-      </section>
-
-      <section className="bg-card text-foreground py-20 px-6 space-y-8 rounded-3xl my-8">
-        <div className="container mx-auto">
-          <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div className="space-y-6">
-              <Badge variant="outline" className="bg-background/50">
-                Our Story
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold leading-tight text-balance">
-                From a Vision to a Movement
-              </h2>
-            </div>
-            <div className="text-muted-foreground text-base space-y-4 leading-relaxed">
-              <p>
-                Proxyon Technologies was founded in 2020 with a simple yet
-                powerful vision: to leverage technology to solve real-world
-                problems in Africa. We started as a small team of passionate
-                developers and have since grown into a leading software
-                development company in Zimbabwe, with a diverse team of experts
-                and a portfolio of successful projects.
-              </p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 border-border/50">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <Building size={24} className="text-primary" />
-                  <CardTitle className="text-2xl font-bold">2020</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Proxyon Technologies was founded with a mission to drive
-                  digital transformation in Africa.
+    <main className="flex flex-col w-full">
+      {/* ── Hero ── */}
+      <section className="py-24 px-6 bg-background">
+        <div className="w-full md:max-w-[75%] mx-auto">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground/50 mb-6">
+            About Us
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight text-balance max-w-4xl">
+            Building Africa&apos;s digital future,
+            <br className="hidden md:block" /> one product at a time.
+          </h1>
+          <div className="mt-12 pt-12 border-t border-border/40 grid md:grid-cols-3 gap-8">
+            <p className="text-muted-foreground text-base leading-relaxed col-span-2 max-w-xl">
+              We are a team of developers, designers, and strategists dedicated
+              to building innovative software that drives progress and empowers
+              businesses across Southern Africa.
+            </p>
+            <div className="flex flex-col gap-4 md:items-end md:text-right">
+              <div>
+                <p className="text-3xl font-bold text-foreground">2020</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground/60 mt-1">
+                  Founded
                 </p>
-              </CardContent>
-            </Card>
-            <Card className="rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 border-border/50">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <Users size={24} className="text-primary" />
-                  <CardTitle className="text-2xl font-bold">10+</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Grown to a team of over 10 passionate developers, designers,
-                  and strategists.
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-foreground">Zimbabwe</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground/60 mt-1">
+                  Home Base
                 </p>
-              </CardContent>
-            </Card>
-            <Card className="rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 border-border/50">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <Lightbulb size={24} className="text-primary" />
-                  <CardTitle className="text-2xl font-bold">5+</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Launched over 5 innovative products that are transforming
-                  industries.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-5 gap-16 items-center">
-            {/* Text Column */}
-            <div className="lg:col-span-2 space-y-6">
-              <Badge variant="outline" className="bg-background/50">
-                Our Ecosystem
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
-                Trusted by the world&apos;s most ambitious teams.
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                We collaborate with global leaders and emerging startups to build the next generation of digital infrastructure across Africa.
-              </p>
-            </div>
-
-            {/* Logo Grid */}
-            <div className="lg:col-span-3">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border/40 rounded-2xl overflow-hidden">
-                {[
-                  "/logos/logoipsum-213.svg",
-                  "/logos/logoipsum-220.svg",
-                  "/logos/logoipsum-258.svg",
-                  "/logos/logoipsum-352.svg",
-                  "/logos/logoipsum-358.svg",
-                  "/logos/logoipsum-381.svg",
-                  "/logos/logoipsum-396.svg",
-                  "/logos/logoipsum-404.svg",
-                ].map((logo, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-center p-8 md:p-10 bg-background hover:bg-card transition-colors duration-300 group"
-                  >
-                    <div className="h-8 w-24 md:h-10 md:w-32 relative">
-                      <Image
-                        src={logo}
-                        alt={`Partner Logo ${index + 1}`}
-                        fill
-                        className="object-contain opacity-40 group-hover:opacity-100 transition-opacity duration-300 grayscale group-hover:grayscale-0 dark:brightness-200"
-                      />
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-background text-foreground py-20 px-6">
-        <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="relative h-[500px] w-full overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
-            <Image
-              src="/office.jpg"
-              alt="Proxyon Technologies office"
-              fill
-              style={{ objectFit: "cover" }}
-              className="group-hover:scale-105 transition-transform duration-500 "
-            />
+      {/* ── Our Story / Timeline ── */}
+      <section className="py-24 px-6 bg-muted/30">
+        <div className="w-full md:max-w-[75%] mx-auto space-y-16">
+          <div className="flex items-center gap-6">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
+              Our Story
+            </span>
+            <div className="flex-1 h-px bg-border/40" />
           </div>
-          <div>
-            <div className="max-w-3xl mb-12">
-              <Badge variant="outline" className="mb-4">
-                Our Vision
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-                To be the leading technology partner for businesses in Africa.
+
+          <div className="grid md:grid-cols-[1fr_auto] gap-12 items-end">
+            <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance max-w-lg">
+              From a vision to a movement.
+            </h2>
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs md:text-right md:pb-1">
+              Founded in 2020, we started as a small team with a big idea —
+              leverage technology to solve real problems in Africa. Here&apos;s
+              how we got here.
+            </p>
+          </div>
+
+          <div className="w-full">
+            {milestones.map((m, i) => (
+              <div
+                key={m.key}
+                className={`grid grid-cols-[6rem_1fr] md:grid-cols-[8rem_1fr_1fr] items-start gap-6 md:gap-12 py-8 ${
+                  i !== milestones.length - 1 ? "border-b border-border/40" : ""
+                }`}
+              >
+                {/* Date */}
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 pt-0.5">
+                  {m.date}
+                </p>
+
+                {/* Label */}
+                <p className="text-sm font-bold text-foreground">{m.label}</p>
+
+                {/* Description — hidden on mobile, shows on md+ */}
+                <p className="hidden md:block text-sm text-muted-foreground leading-relaxed">
+                  {m.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Vision + Partners ── */}
+      <section className="py-24 px-6 bg-background">
+        <div className="w-full md:max-w-[75%] mx-auto space-y-20">
+          <div className="flex items-center gap-6">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
+              Our Vision
+            </span>
+            <div className="flex-1 h-px bg-border/40" />
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+                The leading technology partner for businesses in Africa.
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                We aim to be the go-to technology partner for businesses in
-                Africa, providing them with the tools and expertise they need to
-                succeed in the digital age. We are committed to building a
-                better future for Africa, one line of code at a time.
+              <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-relaxed max-w-md">
+                We aim to be the go-to technology partner for businesses across
+                the continent — providing the tools and expertise they need to
+                succeed in the digital age.
               </p>
+
+              {/* Partners inline under vision text */}
+              <div className="pt-6 border-t border-border/40 space-y-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
+                  Trusted by
+                </p>
+                <div className="relative overflow-hidden">
+                  <Marquee.Root gap="2.5rem" duration={35}>
+                    <Marquee.Content>
+                      {partners.map((name) => (
+                        <Marquee.Item key={name}>
+                          <span className="text-sm font-semibold text-muted-foreground/50 hover:text-foreground/70 transition-colors duration-300 cursor-default whitespace-nowrap">
+                            {name}
+                          </span>
+                        </Marquee.Item>
+                      ))}
+                    </Marquee.Content>
+                  </Marquee.Root>
+                  <Marquee.Edge side="left" />
+                  <Marquee.Edge side="right" />
+                </div>
+              </div>
+            </div>
+
+            <div className="relative h-[420px] w-full rounded-2xl overflow-hidden bg-muted">
+              <Image
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2000&auto=format&fit=crop"
+                alt="Proxyon Technologies team"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-background text-foreground py-20 px-6">
-        <div className="container">
-          <Badge
-            variant="outline"
-            className="mb-4 text-primary-foreground bg-primary border-none"
-          >
-            Contact us
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-balance max-w-4xl ">
-            Meet the Team Ready to Build Your Solution
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl leading-relaxed mb-8">
-            Our diverse team is composed of dedicated and seasoned experts
-            across every crucial domain, from strategic planning and
-            cutting-edge design to robust engineering.{" "}
-          </p>
+      {/* ── Team ── */}
+      <section className="py-24 px-6 bg-muted/30">
+        <div className="w-full md:max-w-[75%] mx-auto space-y-20">
+          <div className="flex items-center gap-6">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
+              The Team
+            </span>
+            <div className="flex-1 h-px bg-border/40" />
+          </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8 mt-16 text-left">
+          <div className="space-y-2 max-w-xl">
+            <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+              The people behind the products.
+            </h2>
+            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-relaxed pt-2">
+              A diverse group of experts spanning strategy, design, engineering,
+              and finance — all working toward the same mission.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-12">
             {teamMembers.map((member) => (
-              <div key={member.key} className="group cursor-pointer">
-                <div className="relative w-full aspect-[4/5] bg-muted rounded-xl overflow-hidden">
+              <div key={member.key} className="group flex flex-col gap-3">
+                <div className="relative w-full aspect-[3/4] rounded-xl overflow-hidden bg-muted">
                   <Image
                     src={member.image}
                     alt={`Photo of ${member.name}`}
                     fill
-                    className="object-cover grayscale"
+                    className="object-cover"
                   />
                 </div>
-                <div
-                  className={`p-3 mt-2 rounded-lg transition-all duration-300 group-hover:bg-muted`}
-                >
-                  <h3 className="font-semibold text-foreground">
+                <div>
+                  <p className="font-semibold text-foreground text-sm leading-snug">
                     {member.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{member.role}</p>
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    {member.role}
+                  </p>
                 </div>
               </div>
             ))}
@@ -290,33 +282,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-background text-foreground py-20 px-6">
-        <div className="container mx-auto">
-          <div className="max-w-3xl mb-12 text-center mx-auto">
-            <Badge variant="outline" className="mb-4">
+      {/* ── Office ── */}
+      <section className="py-24 px-6 bg-background">
+        <div className="w-full md:max-w-[75%] mx-auto space-y-12">
+          <div className="flex items-center gap-6">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
               Our Office
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-              Come and say hello
+            </span>
+            <div className="flex-1 h-px bg-border/40" />
+          </div>
+
+          <div className="space-y-2 max-w-xl">
+            <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+              Come say hello.
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              We are located in the heart of Harare, Zimbabwe. We would love to
+            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-relaxed pt-2">
+              We are based in the heart of Harare, Zimbabwe. We&apos;d love to
               have you over for a cup of coffee.
             </p>
           </div>
-          <div className="relative h-[500px] w-full overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
+
+          <div className="relative h-[480px] w-full rounded-2xl overflow-hidden bg-muted">
             <Image
               src="/map.png"
               alt="Proxyon Technologies office location"
               fill
-              style={{ objectFit: "cover" }}
-              className="group-hover:scale-105 transition-transform duration-500 "
+              className="object-cover"
             />
           </div>
         </div>
       </section>
-
-
     </main>
   );
 }

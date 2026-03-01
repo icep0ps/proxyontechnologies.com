@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ColorBends from "@/components/ColorBends";
 import {
   ArrowRight,
-  ArrowUpRight,
   CreditCard,
   type LucideIcon,
   Plus,
@@ -19,38 +20,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LightRays } from "@/components/ui/light-rays";
 import { cn } from "@/lib/utils";
 
-type Faq = {
-  key: string;
-  question: string;
-  answer: string;
-};
-
-type Service = {
-  key: string;
-  href: string;
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  hasGlow: boolean;
-  status: "Live" | "Beta" | "New";
-  detail: string;
-};
-
+type Faq = { key: string; question: string; answer: string };
 type Project = {
   key: string;
-  image: string;
   title: string;
   tagline: string;
   description: string;
   stats: Map<string, React.ReactNode>;
   logo: string;
   url?: string;
-  brandColor?: string;
 };
-
 type Blog = {
   key: string;
   image: string;
@@ -60,11 +41,17 @@ type Blog = {
   authorImage: string;
   date: string;
 };
+type Stat = {
+  key: string;
+  label: string;
+  value: string;
+  description: string;
+  icon: LucideIcon;
+};
 
 const projects: Project[] = [
   {
     key: "agrilease",
-    image: "/agricultural-equipment-rental-rental-platform-interface.jpg",
     title: "Agrilease",
     tagline: "Equipment Rental Marketplace",
     description:
@@ -72,7 +59,7 @@ const projects: Project[] = [
     stats: new Map([
       [
         "Status",
-        <Badge key="status-agrilease" variant="default" className="bg-green-500 hover:bg-green-600">
+        <Badge key="status-agrilease" variant="default">
           Live
         </Badge>,
       ],
@@ -81,11 +68,9 @@ const projects: Project[] = [
     ]),
     logo: "/logos/agrilease-logo.png",
     url: "https://agrilease.co.zw",
-    brandColor: "#22c55e",
   },
   {
     key: "payce",
-    image: "/mobile-payment-app-interface-with-nfc-and-qr-code.jpg",
     title: "Payce",
     tagline: "Point of Sale for SMEs",
     description:
@@ -93,7 +78,7 @@ const projects: Project[] = [
     stats: new Map([
       [
         "Status",
-        <Badge key="status-payce" variant="default" className="bg-blue-600 hover:bg-blue-700">
+        <Badge key="status-payce" variant="default">
           Beta
         </Badge>,
       ],
@@ -102,39 +87,41 @@ const projects: Project[] = [
     ]),
     logo: "/logos/payce-logo.svg",
     url: "https://payce.co.zw",
-    brandColor: "#0000ff",
   },
 ];
 
 const blogs: Blog[] = [
   {
     key: "blog-1",
-    image: "/blog/post-one.jpg",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
     title: "The Future of FinTech in Africa",
     description:
       "Exploring the trends and technologies shaping the future of financial services across the continent.",
     author: "John Doe",
-    authorImage: "/avatars/john-doe.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=john",
     date: "Oct 1, 2025",
   },
   {
     key: "blog-2",
-    image: "/blog/post-two.jpg",
+    image:
+      "https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?q=80&w=800&auto=format&fit=crop",
     title: "AgriTech: A Revolution in Farming",
     description:
       "How technology is transforming agriculture, from precision farming to supply chain optimization.",
     author: "Jane Smith",
-    authorImage: "/avatars/jane-smith.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=jane",
     date: "Sep 25, 2025",
   },
   {
     key: "blog-3",
-    image: "/blog/post-three.jpg",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop",
     title: "The Power of Custom Software",
     description:
       "Why off-the-shelf solutions may not be the best fit for your business and how custom software can help.",
     author: "Peter Jones",
-    authorImage: "/avatars/peter-jones.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=peter",
     date: "Sep 15, 2025",
   },
 ];
@@ -162,7 +149,7 @@ const faqs: Faq[] = [
     key: "faq-4",
     question: "How do we start working together?",
     answer:
-      "The first step is a discovery call where we discuss your goals and challenges. From there, we'll move to a detailed proposal, and upon agreement, we'll kick off the project with our dedicated team. Just reach out through our contact page to get started!.",
+      "The first step is a discovery call where we discuss your goals and challenges. From there, we'll move to a detailed proposal, and upon agreement, we'll kick off the project with our dedicated team. Just reach out through our contact page to get started!",
   },
   {
     key: "faq-5",
@@ -172,176 +159,198 @@ const faqs: Faq[] = [
   },
 ];
 
-type Stat = {
-  key: string;
-  label: string;
-  value: string;
-  description: string;
-  icon: LucideIcon;
-};
-
 const stats: Stat[] = [
   {
     key: "farmers",
-    label: "Farmers Empowered",
-    value: "15,000+",
-    description: "Providing access to mechanization and credit through Agrilease.",
+    label: "Farmers Connected",
+    value: "400+",
+    description:
+      "Smallholder farmers gaining their first access to mechanization through Agrilease.",
     icon: Tractor,
   },
   {
     key: "transactions",
-    label: "Digital Transactions",
-    value: "2.5M+",
-    description: "Secure payments facilitated through our Payce POS infrastructure.",
+    label: "Transactions Processed",
+    value: "12,000+",
+    description:
+      "Early-stage payments flowing through the Payce POS platform since beta launch.",
     icon: CreditCard,
   },
   {
     key: "smes",
-    label: "SME Partners",
-    value: "500+",
-    description: "Businesses optimizing their operations with our digital tools.",
+    label: "SMEs Onboarded",
+    value: "60+",
+    description: "Small businesses running day-to-day operations on Payce.",
     icon: Store,
   },
   {
     key: "market",
-    label: "Market Presence",
-    value: "3 Countries",
-    description: "Expanding our footprint across the SADC region.",
+    label: "Home Market",
+    value: "Zimbabwe",
+    description: "Rooted in Harare, building toward a broader SADC footprint.",
     icon: Globe,
   },
 ];
 
 export default function Home() {
   return (
-    <main className="md:max-w-[75%] mx-auto space-y-12">
-      {/* Hero Section */}
-      <section className="relative w-full min-h-[85vh] flex items-end">
-        <div className="absolute inset-0">
-          <Image
-            src="/alexander-x-KtUjim68XEc-unsplash.jpg"
-            alt="Hero background"
-            fill
-            priority
-            className="object-cover opacity-60"
+    <main className="flex flex-col w-full">
+      {/* ── Hero ── */}
+      <section className="relative w-full min-h-[90vh] flex items-center pt-32 pb-20 overflow-hidden bg-background">
+        <div className="absolute inset-0 z-0">
+          <ColorBends
+            rotation={45}
+            speed={1}
+            colors={["#2563eb", "#1d4ed8"]}
+            transparent
+            autoRotate={0.4}
+            scale={3}
+            frequency={1}
+            warpStrength={1}
+            mouseInfluence={0}
+            parallax={2}
+            noise={0}
           />
-          {/* Gradients to blend image with site background */}
-          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/20 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent" />
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background via-background/20 to-transparent" />
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background via-background/20 to-transparent" />
-          <div className="absolute inset-0 bg-background/20" />
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-background to-transparent z-10" />
 
-        <div className="relative z-10 w-full px-6 pb-16 pt-40">
-          <div className="max-w-5xl space-y-6">
+        <div className="relative z-20 w-full px-6 md:max-w-[75%] mx-auto">
+          <div className="max-w-4xl space-y-8">
             <Badge
               variant="outline"
-              className="bg-primary font-semibold text-sm py-3 px-6 rounded-full transition-colors border-none"
+              className="bg-primary text-primary-foreground font-semibold text-sm py-2 px-6 rounded-full border-none h-auto inline-flex items-center gap-2"
             >
-              <Badge key="new-badge" variant="secondary" className="mr-2">
-                New
+              <Badge
+                variant="secondary"
+                className="bg-white text-black hover:bg-white/90"
+              >
+                Latest
               </Badge>
-              Digital Transformation Solutions →
+              Digital Transformation Solutions
             </Badge>
-            <h1 className="text-white text-[length:var(--font-size-display)] leading-[var(--leading-tight)] font-bold text-balance max-w-3xl">
+            <h1 className="text-foreground text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-[1.1]">
               Powering Zimbabwe&apos;s Digital Revolution
             </h1>
-            <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-12">
-              <p className="text-white/80 text-[length:var(--font-size-body-lg)] max-w-xl text-pretty leading-[var(--leading-normal)]">
-                We harness innovation to provide cutting-edge software solutions
-                that empower businesses to adapt and thrive in the ever-evolving
-                digital realm across Southern Africa.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 lg:flex-shrink-0">
-                <Button className="bg-white text-black font-semibold py-6 px-8 rounded-full hover:bg-white/90 transition-all duration-200 text-base">
-                  Explore Our Solutions <ArrowRight className="ml-2" />
+            <p className="text-muted-foreground text-base md:text-lg lg:text-xl max-w-2xl text-pretty leading-relaxed">
+              We harness innovation to provide cutting-edge software solutions
+              that empower businesses to adapt and thrive in the ever-evolving
+              digital realm across Southern Africa.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Link href="/about">
+                <Button className="bg-foreground text-background font-semibold h-14 px-8 rounded-full hover:bg-foreground/90 transition-all duration-200 text-base">
+                  Explore Our Solutions
                 </Button>
+              </Link>
+              <Link href="/contact">
                 <Button
-                  variant="outline"
-                  className="text-white border-white/30 py-6 px-8 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-200 text-base"
+                  variant="secondary"
+                  className="h-14 px-8 rounded-full transition-all duration-200 text-base"
                 >
-                  Contact Sales <ArrowRight className="ml-2" />
+                  Contact Sales
                 </Button>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Ventures (Zig-Zag Layout) */}
-      <section className="py-20 px-6 bg-background">
-        <div className="w-full">
-          <div className="space-y-6 mb-16 text-left max-w-3xl">
-            <Badge variant="outline" className="mb-4 bg-card border-border/50 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-primary/80">
-              Our Ventures
-            </Badge>
+      {/* ── Our Ventures ── */}
+      <section className="py-24 px-6 bg-background">
+        <div className="w-full md:max-w-[75%] mx-auto space-y-32">
+          {/* Section header */}
+          <div className="max-w-2xl space-y-4">
+            <Badge variant="outline">Our Ventures</Badge>
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold text-foreground">
               Building Africa&apos;s Digital Infrastructure
             </h2>
             <p className="text-[length:var(--font-size-body)] text-muted-foreground leading-[var(--leading-normal)]">
-              We develop and scale mission-driven platforms that bridge critical gaps in mechanization and financial services across the continent.
+              We develop and scale mission-driven platforms that bridge critical
+              gaps in mechanization and financial services across the continent.
             </p>
           </div>
 
-          <div className="space-y-24">
+          <div className="space-y-32">
             {projects.map((project, index) => {
               const isEven = index % 2 === 0;
+              const metaStats = Array.from(project.stats.entries()).filter(
+                ([key]) => key !== "Status",
+              );
               return (
-                <div key={project.key} className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                  {/* Image Container */}
-                  <div className={cn("relative group", !isEven && "lg:order-2")}>
-                    <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-border/50 shadow-2xl">
-                      <Image
-                        src={project.image || "/placeholder.svg"}
-                        alt={`${project.title} interface`}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div 
-                        className="absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-10" 
-                        style={{ backgroundColor: project.brandColor }}
-                      />
-                    </div>
-                    {/* Floating Logo Badge */}
-                    <div className="absolute -bottom-8 -right-8 lg:bottom-8 lg:-right-12 bg-card p-4 rounded-2xl shadow-xl border border-border/50 hidden sm:block">
-                      <Image
-                        src={project.logo || "/placeholder.svg"}
-                        alt={`${project.title} logo`}
-                        width={64}
-                        height={64}
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Text Container */}
-                  <div className={cn("flex flex-col justify-center space-y-8", !isEven && "lg:order-1")}>
-                    <div>
-                      <h3 className="text-[length:var(--font-size-h2)] font-bold text-foreground mb-2">
-                        {project.title}
-                      </h3>
-                      <p className="text-xl text-primary font-medium mb-6">{project.tagline}</p>
-                      <p className="text-[length:var(--font-size-body-lg)] text-muted-foreground leading-relaxed">
+                <div
+                  key={project.key}
+                  className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start"
+                >
+                  {/* Text column */}
+                  <div
+                    className={cn(
+                      "flex flex-col space-y-8",
+                      !isEven && "lg:order-2",
+                    )}
+                  >
+                    <div className="space-y-6">
+                      <div className="flex items-start gap-5">
+                        <div className="relative w-12 h-12 md:w-16 md:h-16 flex-shrink-0">
+                          <Image
+                            src={project.logo || "/placeholder.svg"}
+                            alt={`${project.title} logo`}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-none tracking-tight">
+                              {project.title}
+                            </h3>
+                            {project.stats.get("Status")}
+                          </div>
+                          <p className="text-xl text-primary font-semibold leading-tight">
+                            {project.tagline}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-relaxed">
                         {project.description}
                       </p>
                     </div>
 
-                    {/* Stats mini grid */}
-                    <div className="grid grid-cols-2 gap-4 py-6 border-y border-border/40">
-                      {Array.from(project.stats.entries()).map(([key, value]) => (
-                        <div key={key} className="flex flex-col gap-1">
-                          <span className="text-sm text-muted-foreground font-semibold uppercase tracking-wider">{key}</span>
-                          <div className="text-foreground font-medium">{value}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Button asChild size="lg" className="w-fit rounded-full group">
-                      <a href={project.url} target="_blank" rel="noopener noreferrer">
-                        Visit {project.title} 
-                        <ArrowUpRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="rounded-full h-12 px-6 text-base font-semibold gap-2 group w-fit"
+                    >
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Visit {project.title}
+                        <Globe className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
                       </a>
                     </Button>
+                  </div>
+
+                  {/* Stats column */}
+                  <div
+                    className={cn(
+                      "flex flex-col divide-y divide-border/40",
+                      !isEven && "lg:order-1",
+                    )}
+                  >
+                    {metaStats.map(([key, value]) => (
+                      <div
+                        key={key}
+                        className="flex items-baseline justify-between gap-6 py-6 first:pt-0 last:pb-0"
+                      >
+                        <dt className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground/50 flex-shrink-0">
+                          {key}
+                        </dt>
+                        <dd className="text-lg font-semibold text-foreground text-right">
+                          {value}
+                        </dd>
+                      </div>
+                    ))}
                   </div>
                 </div>
               );
@@ -350,69 +359,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Measurable Impact Section - Borderless Typographic Grid */}
-      <section className="py-20 px-6 bg-background">
-        <div className="w-full grid lg:grid-cols-12 items-center gap-16 lg:gap-24">
-          {/* Header Column */}
-          <div className="lg:col-span-5 max-w-md">
-            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-foreground mb-4">
-              Measurable Impact at Scale
+      {/* ── Early Traction ── */}
+      <section className="py-24 px-6 bg-muted/30">
+        <div className="w-full md:max-w-[75%] mx-auto">
+          <div className="mb-16 space-y-4 text-center">
+            <Badge variant="outline">Early Traction</Badge>
+            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold text-foreground text-balance">
+              We&apos;re just getting started.
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
-              We don&apos;t just build software; we build ecosystems that drive
-              real-world economic growth and operational efficiency.
+            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)] max-w-lg mx-auto">
+              Honest numbers from an early-stage team. Small today, but every
+              figure represents a real business or farmer whose life we&apos;re
+              making easier.
             </p>
           </div>
 
-          {/* Data Grid Column - Clean & Borderless */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16 w-full h-fit">
-            {stats.map((stat) => (
+          <div className="w-full">
+            {stats.map((stat, i) => (
               <div
                 key={stat.key}
-                className="flex flex-col justify-center gap-4 transition-all duration-500 group"
+                className={`grid grid-cols-[1fr_auto] items-center gap-6 md:gap-12 py-8 ${i !== stats.length - 1 ? "border-b border-border/40" : ""}`}
               >
-                <div className="text-4xl xl:text-5xl font-bold tracking-tighter text-foreground group-hover:text-primary transition-colors duration-500 leading-none whitespace-nowrap">
-                  {stat.value}
-                </div>
-                <div className="space-y-2">
-                  <div className="text-[10px] lg:text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                <div className="space-y-1.5 min-w-0">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
                     {stat.label}
-                  </div>
-                  <div className="text-muted-foreground text-xs lg:text-sm leading-relaxed max-w-[220px]">
+                  </p>
+                  <p className="text-muted-foreground text-base leading-relaxed">
                     {stat.description}
-                  </div>
+                  </p>
                 </div>
+                <p className="text-3xl md:text-4xl xl:text-5xl font-bold tracking-tighter text-foreground leading-none text-right whitespace-nowrap">
+                  {stat.value}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="bg-background text-foreground py-20 px-6">
-        <div className="md:max-w-[100%] mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-          {/* Left Column: Title */}
-          <div className="lg:col-span-5 max-w-md">
-            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance mb-6">
+      {/* ── FAQ ── */}
+      <section className="py-20 px-6 bg-background">
+        <div className="w-full md:max-w-[75%] mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+          <div className="lg:col-span-5 max-w-md space-y-4">
+            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance">
               Everything You Need To Know
             </h2>
-            <p className="text-muted-foreground mt-4 text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
+            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
               Find answers to common questions about our process, services, and
               how we can partner to build your next big idea.
             </p>
           </div>
-          {/* Right Column: Accordion */}
           <div className="lg:col-span-7 w-full">
-            <Accordion type="single" collapsible className="w-full space-y-4">
+            <Accordion type="single" collapsible className="w-full space-y-3">
               {faqs.map((faq) => (
                 <AccordionItem
                   key={faq.key}
                   value={faq.key}
-                  className="bg-card/50 border border-border/20 rounded-[2rem] transition-colors hover:bg-card px-2"
+                  className="bg-card/50 border border-border/20 rounded-[2rem] hover:bg-card transition-colors px-2"
                 >
-                  <AccordionTrigger className="w-full flex items-center justify-between p-6 font-bold text-[length:var(--font-size-body)] text-left hover:no-underline [&>svg]:hidden">
+                  <AccordionTrigger className="flex items-center justify-between gap-4 p-6 font-bold text-[length:var(--font-size-body)] text-left hover:no-underline [&>svg]:hidden">
                     <span className="text-balance">{faq.question}</span>
-                    <div className="flex-shrink-0 ml-4 p-2 rounded-full border border-border/50 group-data-[state=open]:bg-primary group-data-[state=open]:text-primary-foreground transition-all duration-300">
+                    <div className="flex-shrink-0 p-2 rounded-full border border-border/50 group-data-[state=open]:bg-primary group-data-[state=open]:text-primary-foreground transition-all duration-300">
                       <Plus className="h-4 w-4 transition-transform duration-300 group-data-[state=open]:rotate-45" />
                     </div>
                   </AccordionTrigger>
@@ -426,15 +433,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Blog Section */}
-      <section className="bg-background text-foreground py-20 px-6 mb-12">
-        <div className="w-full">
-          {/* Header */}
-          <div className="mb-12 max-w-xl">
-            <Badge variant="outline" className="mb-4 bg-background/50 border-border/50 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-primary/80">
-              From the Blog
-            </Badge>
-            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance mb-4">
+      {/* ── Blog ── */}
+      <section className="py-24 px-6 bg-background">
+        <div className="w-full md:max-w-[75%] mx-auto">
+          <div className="mb-12 max-w-xl space-y-4">
+            <Badge variant="outline">From the Blog</Badge>
+            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance">
               Insights and Innovations
             </h2>
             <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
@@ -445,32 +449,35 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogs.map((blog, index) => (
-              <article key={blog.key} className="group cursor-pointer flex flex-col h-full">
+              <article
+                key={blog.key}
+                className="group cursor-pointer flex flex-col h-full"
+              >
                 <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden mb-6 border border-border/40">
                   <Image
                     src={blog.image || "/placeholder.svg"}
-                    alt={`${blog.title} blog post image`}
+                    alt={blog.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover"
                   />
                   {index === 0 && (
                     <div className="absolute top-4 left-4">
-                      <Badge variant="secondary" className="bg-background/80 backdrop-blur-md border-none px-3 py-1 text-[10px] font-bold uppercase tracking-widest">Featured</Badge>
+                      <Badge variant="secondary">Featured</Badge>
                     </div>
                   )}
                 </div>
-                <div className="space-y-3 flex-grow flex flex-col">
-                  <div className="flex items-center gap-3 text-[length:var(--font-size-sm)] font-bold uppercase tracking-wider text-primary/60">
-                    <span>{blog.date}</span>
-                  </div>
-                  <h3 className="text-[length:var(--font-size-h4)] font-bold leading-[var(--leading-snug)] group-hover:text-primary transition-colors duration-300">
+                <div className="flex flex-col flex-1 gap-3">
+                  <p className="text-[length:var(--font-size-sm)] font-bold uppercase tracking-wider text-primary/60">
+                    {blog.date}
+                  </p>
+                  <h3 className="text-[length:var(--font-size-h4)] font-bold leading-[var(--leading-snug)]">
                     {blog.title}
                   </h3>
-                  <p className="text-muted-foreground text-[length:var(--font-size-sm)] leading-[var(--leading-normal)] line-clamp-3 mb-6">
+                  <p className="text-muted-foreground text-[length:var(--font-size-sm)] leading-[var(--leading-normal)] line-clamp-3 flex-1">
                     {blog.description}
                   </p>
-                  <div className="mt-auto pt-6 flex items-center gap-4 border-t border-border/40">
-                    <Avatar className="h-10 w-10 border border-border/50">
+                  <div className="mt-auto pt-5 flex items-center gap-3 border-t border-border/40">
+                    <Avatar className="h-9 w-9 border border-border/50 flex-shrink-0">
                       <AvatarImage
                         src={blog.authorImage || "/placeholder.svg"}
                         alt={blog.author}
@@ -482,11 +489,13 @@ export default function Home() {
                           .join("")}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col">
-                      <span className="text-[length:var(--font-size-sm)] font-bold text-foreground/90">
+                    <div>
+                      <p className="text-[length:var(--font-size-sm)] font-bold text-foreground/90 leading-none">
                         {blog.author}
-                      </span>
-                      <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Author</span>
+                      </p>
+                      <p className="text-[9px] uppercase tracking-widest text-muted-foreground font-bold mt-0.5">
+                        Author
+                      </p>
                     </div>
                   </div>
                 </div>
