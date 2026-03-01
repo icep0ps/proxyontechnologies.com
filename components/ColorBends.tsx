@@ -201,12 +201,12 @@ export default function ColorBends({
 
     handleResize();
 
-    if ('ResizeObserver' in window) {
+    if (typeof window !== 'undefined' && 'ResizeObserver' in window) {
       const ro = new ResizeObserver(handleResize);
       ro.observe(container);
       resizeObserverRef.current = ro;
-    } else {
-      window.addEventListener('resize', handleResize);
+    } else if (typeof window !== 'undefined') {
+      (window as Window).addEventListener('resize', handleResize);
     }
 
     const loop = () => {
@@ -233,7 +233,7 @@ export default function ColorBends({
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       if (resizeObserverRef.current) resizeObserverRef.current.disconnect();
-      else window.removeEventListener('resize', handleResize);
+      else if (typeof window !== 'undefined') (window as Window).removeEventListener('resize', handleResize);
       geometry.dispose();
       material.dispose();
       renderer.dispose();
