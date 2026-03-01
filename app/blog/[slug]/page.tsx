@@ -120,8 +120,9 @@ const blogs: Blog[] = [
   },
 ];
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const blog = blogs.find((blog) => blog.slug === params.slug);
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const blog = blogs.find((blog) => blog.slug === slug);
 
   if (!blog) {
     return <div>Blog post not found</div>;
