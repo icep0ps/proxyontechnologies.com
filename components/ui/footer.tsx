@@ -1,57 +1,90 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import Dither from "@/components/Dither";
+
+const nav = [
+  {
+    label: "Company",
+    links: [
+      { name: "About", href: "/about" },
+      { name: "Team", href: "/about" },
+      { name: "Careers", href: "#" },
+      { name: "Blog", href: "/blog" },
+      { name: "Press", href: "#" },
+    ],
+  },
+  {
+    label: "Connect",
+    links: [
+      { name: "Contact Sales", href: "/contact" },
+      { name: "Support", href: "/contact" },
+      { name: "Twitter", href: "#" },
+      { name: "LinkedIn", href: "#" },
+    ],
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="relative text-foreground pt-20 pb-8 px-6 overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src="/iklas-999vftR3p4I-unsplash.jpg"
-          alt="Footer background"
-          fill
-          className="object-cover object-center scale-110"
+    <footer className="relative text-foreground pt-20 pb-0 px-6 overflow-hidden">
+      {/* Dither background */}
+      <div className="absolute inset-0 z-0">
+        <Dither
+          waveColor={[0.145, 0.388, 0.922]}
+          disableAnimation={false}
+          enableMouseInteraction={false}
+          mouseRadius={1}
+          colorNum={12}
+          pixelSize={1}
+          waveAmplitude={0.25}
+          waveFrequency={2}
+          waveSpeed={0.1}
         />
-        {/* Radial gradient overlay for vignette effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background))_70%)]" />
-        {/* Top gradient for smooth transition */}
-        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background via-background/90 to-transparent" />
-        {/* Bottom subtle gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 to-transparent" />
-        {/* Overlay for text readability */}
-        <div className="absolute inset-0 bg-background/60" />
+        <div className="absolute inset-0 bg-background/20" />
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background via-background/40 to-transparent" />
       </div>
 
       <div className="md:max-w-[75%] mx-auto relative z-10">
-        {/* Top section: Logo and CTA */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 pb-16 border-b border-foreground/20">
-          <div className="space-y-6">
-            <Link href="/" className="block">
+        {/* Logo + tagline + CTA */}
+        <div className="pb-16 border-b border-foreground/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+          <div>
+            <Link href="/" className="block mb-6">
               <Image
                 src="/logo.png"
                 alt="Proxyon Technologies"
                 width={220}
                 height={60}
-                className="h-14 w-auto invert-100"
+                className="h-12 w-auto dark:invert"
               />
             </Link>
-            <p className="text-muted-foreground text-base leading-relaxed max-w-md">
-              Powering Zimbabwe&apos;s digital revolution with innovative software solutions that empower businesses across Southern Africa.
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
+              Powering Zimbabwe&apos;s digital revolution with innovative
+              software solutions across Southern Africa.
             </p>
           </div>
-          <div className="lg:text-right">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground text-balance">
-              Let&apos;s work together
-            </h2>
-          </div>
+
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-3 text-foreground"
+          >
+            <span className="text-2xl md:text-3xl font-bold leading-none">
+              Get in touch
+            </span>
+            <span className="flex items-center justify-center h-10 w-10 rounded-full border border-foreground/20 group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-300 flex-shrink-0">
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </span>
+          </Link>
         </div>
 
-        {/* Main footer content */}
+        {/* Nav grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16 py-16 text-muted-foreground">
-          {/* Contact Info */}
+          {/* Contact */}
           <div className="col-span-2 md:col-span-1">
-            <h4 className="text-foreground font-semibold mb-5 text-sm uppercase tracking-wider">Contact</h4>
-            <div className="text-sm space-y-2">
+            <h4 className="text-foreground font-semibold mb-5 text-[10px] uppercase tracking-[0.2em]">
+              Contact
+            </h4>
+            <div className="text-sm space-y-1.5 leading-relaxed">
               <p>Suite 2, Block C</p>
               <p>Highlands Offices</p>
               <p>Harare, Zimbabwe</p>
@@ -60,96 +93,42 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Solutions */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-5 text-sm uppercase tracking-wider">Solutions</h4>
-            <ul className="text-sm space-y-3">
-              <li>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  Agrilease
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  Payce
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-5 text-sm uppercase tracking-wider">Company</h4>
-            <ul className="text-sm space-y-3">
-              <li>
-                <Link href="/about" className="hover:text-primary transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-primary transition-colors">
-                  Team
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  Press
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Connect */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-5 text-sm uppercase tracking-wider">Connect</h4>
-            <ul className="text-sm space-y-3">
-              <li>
-                <Link href="/contact" className="hover:text-primary transition-colors">
-                  Contact Sales
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-primary transition-colors">
-                  Support
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  Twitter
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  LinkedIn
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Dynamic nav columns */}
+          {nav.map((col) => (
+            <div key={col.label}>
+              <h4 className="text-foreground font-semibold mb-5 text-[10px] uppercase tracking-[0.2em]">
+                {col.label}
+              </h4>
+              <ul className="text-sm space-y-3">
+                {col.links.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="hover:text-foreground transition-colors duration-200"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Copyright and legal links */}
-        <div className="flex flex-col sm:flex-row justify-between items-center text-xs border-t border-foreground/20 pt-8 text-muted-foreground gap-4">
+        {/* Copyright */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-foreground/10 py-6 text-xs text-muted-foreground">
           <p>
-            © {new Date().getFullYear()} Proxyon Technologies. All rights reserved.
+            © {new Date().getFullYear()} Proxyon Technologies. All rights
+            reserved.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <Link href="#" className="hover:text-primary transition-colors">
+            <Link href="#" className="hover:text-foreground transition-colors">
               Terms of Service
             </Link>
-            <Link href="#" className="hover:text-primary transition-colors">
+            <Link href="#" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-primary transition-colors">
+            <Link href="#" className="hover:text-foreground transition-colors">
               Cookie Policy
             </Link>
           </div>

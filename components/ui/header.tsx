@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -20,18 +21,20 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { CreditCard, Tractor, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 export function Header() {
+  const pathname = usePathname();
+
   return (
-    <header className="bg-background text-foreground p-4">
-      <div className="flex justify-between items-center md:max-w-[75%] mx-auto">
+    <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-background text-foreground">
+      <div className="flex justify-between items-center md:max-w-[75%] mx-auto p-4">
         <Link href="/" className="flex items-center space-x-2">
           <Image
             src="/logo.png"
             alt="Proxyon Technologies Logo"
             width={120}
-            className="invert-100"
+            className="dark:invert"
             height={120}
           />
         </Link>
@@ -43,7 +46,7 @@ export function Header() {
               <NavigationMenuItem>
                 <Link
                   href="/"
-                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
+                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold transition-colors text-foreground/80 hover:text-foreground"
                 >
                   Home
                 </Link>
@@ -51,65 +54,15 @@ export function Header() {
               <NavigationMenuItem>
                 <Link
                   href="/about"
-                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
+                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold transition-colors text-foreground/80 hover:text-foreground"
                 >
                   About
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent font-semibold text-foreground hover:text-primary transition-colors px-3 text-sm">
-                  Solutions
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    <li>
-                      <NavigationMenuLink
-                        href="#"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                      >
-                        <div className="font-medium flex items-center gap-2 text-sm">
-                          <Image
-                            src="/logos/agrilease-logo.png"
-                            alt="Agrilease"
-                            width={20}
-                            height={20}
-                            className="object-contain"
-                          />
-                          Agrilease
-                        </div>
-                        <p className="text-xs text-muted-foreground leading-tight">
-                          Agricultural equipment rental platform for smallholder
-                          farmers.
-                        </p>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <NavigationMenuLink
-                        href="#"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                      >
-                        <div className="font-medium flex items-center gap-2 text-sm">
-                          <Image
-                            src="/logos/payce-logo.svg"
-                            alt="Payce"
-                            width={20}
-                            height={20}
-                            className="object-contain"
-                          />
-                          Payce
-                        </div>
-                        <p className="text-xs text-muted-foreground leading-tight">
-                          A comprehensive POS system for SMEs with mobile and desktop apps.
-                        </p>
-                      </NavigationMenuLink>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
                 <Link
                   href="/contact"
-                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
+                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold transition-colors text-foreground/80 hover:text-foreground"
                 >
                   Contact
                 </Link>
@@ -117,7 +70,7 @@ export function Header() {
               <NavigationMenuItem>
                 <Link
                   href="/blog"
-                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
+                  className="inline-flex h-9 items-center justify-center rounded-md px-3 py-2 text-sm font-semibold transition-colors text-foreground/80 hover:text-foreground"
                 >
                   Blogs
                 </Link>
@@ -130,7 +83,11 @@ export function Header() {
         <div className="md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-foreground hover:text-foreground/80"
+              >
                 <Menu size={24} />
               </Button>
             </SheetTrigger>
