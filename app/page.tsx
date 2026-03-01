@@ -67,7 +67,7 @@ const projects: Project[] = [
       ["Impact", <span key="imp-agri">Democratizing farm mechanization</span>],
     ]),
     logo: "/logos/agrilease-logo.png",
-    url: "https://agrilease.co.zw",
+    url: "https://agrilease.africau.co.zw/",
   },
   {
     key: "payce",
@@ -86,7 +86,7 @@ const projects: Project[] = [
       ["Target", <span key="tgt-payce">Small & Medium Enterprises</span>],
     ]),
     logo: "/logos/payce-logo.svg",
-    url: "https://payce.co.zw",
+    url: "https://payce.africau.co.zw/",
   },
 ];
 
