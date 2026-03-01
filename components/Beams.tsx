@@ -150,7 +150,7 @@ const BeamPlane: FC<{
   });
 
   return (
-    <mesh ref={meshRef} position={[0, 0, 0]}>
+    <mesh ref={meshRef} position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
       <planeGeometry args={[2, 2]} />
       <shaderMaterial
         vertexShader={vertexShader}

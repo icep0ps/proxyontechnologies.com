@@ -19,12 +19,12 @@ const blogs: Blog[] = [
   {
     key: "blog-1",
     slug: "the-future-of-fintech-in-africa",
-    image: "/blog/post-one.jpg",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
     title: "The Future of FinTech in Africa",
     description:
       "Exploring the trends and technologies shaping the future of financial services across the continent.",
     author: "John Doe",
-    authorImage: "/avatars/john-doe.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=john",
     date: "Oct 1, 2025",
     category: "FinTech",
     content: `
@@ -36,12 +36,12 @@ const blogs: Blog[] = [
   {
     key: "blog-2",
     slug: "agritech-a-revolution-in-farming",
-    image: "/blog/post-two.jpg",
+    image: "https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?q=80&w=800&auto=format&fit=crop",
     title: "AgriTech: A Revolution in Farming",
     description:
       "How technology is transforming agriculture, from precision farming to supply chain optimization.",
     author: "Jane Smith",
-    authorImage: "/avatars/jane-smith.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=jane",
     date: "Sep 25, 2025",
     category: "AgriTech",
     content: `
@@ -53,12 +53,12 @@ const blogs: Blog[] = [
   {
     key: "blog-3",
     slug: "the-power-of-custom-software",
-    image: "/blog/post-three.jpg",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop",
     title: "The Power of Custom Software",
     description:
       "Why off-the-shelf solutions may not be the best fit for your business and how custom software can help.",
     author: "Peter Jones",
-    authorImage: "/avatars/peter-jones.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=peter",
     date: "Sep 15, 2025",
     category: "Software Development",
     content: `
@@ -70,12 +70,12 @@ const blogs: Blog[] = [
   {
     key: "blog-4",
     slug: "cloud-computing-in-africa",
-    image: "/blog/post-four.jpg",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
     title: "Cloud Computing in Africa",
     description:
       "The rise of cloud computing in Africa and its impact on businesses.",
     author: "John Doe",
-    authorImage: "/avatars/john-doe.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=john",
     date: "Aug 28, 2025",
     category: "Cloud",
     content: `
@@ -87,12 +87,12 @@ const blogs: Blog[] = [
   {
     key: "blog-5",
     slug: "the-importance-of-ui-ux-design",
-    image: "/blog/post-five.jpg",
+    image: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=800&auto=format&fit=crop",
     title: "The Importance of UI/UX Design",
     description:
       "How a good UI/UX design can improve user satisfaction and increase conversions.",
     author: "Jane Smith",
-    authorImage: "/avatars/jane-smith.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=jane",
     date: "Aug 15, 2025",
     category: "Design",
     content: `
@@ -104,12 +104,12 @@ const blogs: Blog[] = [
   {
     key: "blog-6",
     slug: "data-analytics-for-business-growth",
-    image: "/blog/post-six.jpg",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
     title: "Data Analytics for Business Growth",
     description:
       "How to use data analytics to make informed decisions and drive business growth.",
     author: "Peter Jones",
-    authorImage: "/avatars/peter-jones.jpg",
+    authorImage: "https://i.pravatar.cc/150?u=peter",
     date: "Jul 30, 2025",
     category: "Data Analytics",
     content: `
@@ -128,8 +128,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <main className="container mx-auto py-12 md:py-20">
-      <article className="prose lg:prose-xl mx-auto">
+    <main className="flex flex-col w-full py-12 md:py-20 px-6 pt-28 md:pt-32">
+      <div className="w-full md:max-w-[75%] mx-auto">
+        <article className="prose lg:prose-xl mx-auto">
         <div className="relative w-full h-96 bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl overflow-hidden mb-8">
           <Image
             src={blog.image || "/placeholder.svg"}
@@ -159,6 +160,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </Link>
         </div>
       </article>
+      </div>
     </main>
   );
 }
