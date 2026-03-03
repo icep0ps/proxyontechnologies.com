@@ -221,7 +221,7 @@ const stats: Stat[] = [
 
 function Counter({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
 
   const numericPart = value.match(/\d+/g)?.join("") || "";
   const numericValue = parseInt(numericPart);
@@ -256,11 +256,13 @@ function Counter({ value }: { value: string }) {
 }
 
 export default function Home() {
+  const titleWords = "Powering Zimbabwe's Digital Revolution".split(" ");
+
   return (
     <main className="flex flex-col w-full">
       {/* ── Hero ── */}
-      <section className="relative w-full min-h-[90vh] flex items-center pt-32 pb-20 overflow-hidden bg-background">
-        <div className="absolute inset-0 z-0">
+      <section className="relative w-full min-h-[90vh] flex items-center pt-12 md:pt-32 pb-20 overflow-hidden bg-background">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <ColorBends
             rotation={45}
             speed={1}
@@ -275,56 +277,89 @@ export default function Home() {
             noise={0}
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-background to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
 
         <motion.div
-          className="relative z-20 w-full px-6 md:max-w-[75%] mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative z-20 w-full px-6 md:max-w-[85%] mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
         >
-          <div className="max-w-4xl space-y-8">
-            <Badge
-              variant="outline"
-              className="bg-primary text-primary-foreground font-semibold text-sm py-2 px-6 rounded-full border-none h-auto inline-flex items-center gap-2"
+          <div className="max-w-5xl mx-auto space-y-8 md:space-y-10 text-center flex flex-col items-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Badge
-                variant="secondary"
-                className="bg-white text-black hover:bg-white/90"
+                variant="outline"
+                className="bg-primary text-primary-foreground font-semibold text-sm py-2 px-6 rounded-full border-none h-auto inline-flex items-center gap-2"
               >
-                Latest
+                <Badge
+                  variant="secondary"
+                  className="bg-white text-black hover:bg-white/90"
+                >
+                  Latest
+                </Badge>
+                Digital Transformation Solutions
               </Badge>
-              Digital Transformation Solutions
-            </Badge>
-            <h1 className="text-foreground text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-[1.1]">
-              Powering Zimbabwe&apos;s Digital Revolution
+            </motion.div>
+
+            <h1 className="text-foreground text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-balance leading-[1.1]">
+              {titleWords.map((word, i) => (
+                <motion.span
+                  key={i}
+                  className="inline-block mr-[0.25em] last:mr-0"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.4 + i * 0.1,
+                    ease: "easeOut",
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
             </h1>
-            <p className="text-muted-foreground text-base md:text-lg lg:text-xl max-w-2xl text-pretty leading-relaxed">
+
+            <motion.p
+              className="text-muted-foreground text-base md:text-lg lg:text-xl max-w-2xl mx-auto text-pretty leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+            >
               We harness innovation to provide cutting-edge software solutions
               that empower businesses to adapt and thrive in the ever-evolving
               digital realm across Southern Africa.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row justify-center gap-4 pt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.4 }}
+            >
               <Link href="/about">
-                <Button className="bg-foreground text-background font-semibold h-14 px-8 rounded-full hover:bg-foreground/90 transition-all duration-200 text-base">
+                <Button className="bg-foreground text-background font-semibold h-14 px-8 rounded-full hover:bg-foreground/90 transition-all duration-200 text-base shadow-lg shadow-black/10">
                   Explore Our Solutions
                 </Button>
               </Link>
               <Link href="/contact">
                 <Button
                   variant="secondary"
-                  className="h-14 px-8 rounded-full transition-all duration-200 text-base"
+                  className="h-14 px-8 rounded-full transition-all duration-200 text-base border-border/40"
                 >
                   Contact Sales
                 </Button>
               </Link>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </section>
 
       {/* ── Our Ventures ── */}
-      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
+      <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-32">
           {/* Section header */}
           <div className="max-w-2xl space-y-4">
@@ -432,7 +467,7 @@ export default function Home() {
       </motion.section>
 
       {/* ── Early Traction ── */}
-      <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
+      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto">
           <div className="mb-16 space-y-4 text-left">
             <Badge variant="outline">Early Traction</Badge>
@@ -477,7 +512,7 @@ export default function Home() {
       </motion.section>
 
       {/* ── FAQ ── */}
-      <motion.section className="py-20 px-6 bg-background" {...fadeInUp}>
+      <motion.section className="py-20 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           <div className="lg:col-span-5 max-w-md space-y-4">
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance">
