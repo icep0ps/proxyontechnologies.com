@@ -1,7 +1,35 @@
+"use client";
+
 import type React from "react";
 import * as Marquee from "@/components/ui/marquee";
-import { Building, Users, Lightbulb } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
+
+const staggerContainer = {
+  initial: {},
+  whileInView: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+  viewport: { once: true, margin: "-100px" },
+};
+
+const staggerItem = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: "easeOut" },
+};
 
 type TeamMember = {
   key: string;
@@ -50,7 +78,8 @@ const milestones = [
     label: "Founded",
     description:
       "Proxyon Technologies was born in Harare with a mission to drive digital transformation across Africa.",
-    icon: Building,
+    logo: "/logo.svg", // company logo
+    href: "/blog/our-founding-story",
   },
   {
     key: "agrilease-launch",
@@ -58,7 +87,8 @@ const milestones = [
     label: "Agrilease Goes Live",
     description:
       "Our first platform enters the market, connecting smallholder farmers with equipment rental services.",
-    icon: Lightbulb,
+    logo: "/logos/agrilease-logo.png",
+    href: "https://agrilease.africau.co.zw/",
   },
   {
     key: "team",
@@ -66,7 +96,8 @@ const milestones = [
     label: "Team Grows",
     description:
       "Developers, designers, and strategists join the mission, bringing diverse expertise under one roof.",
-    icon: Users,
+    logo: null, // no product, no logo
+    href: null,
   },
   {
     key: "payce",
@@ -74,7 +105,8 @@ const milestones = [
     label: "Payce Launches",
     description:
       "Payce enters beta — a full-featured POS system built for SMEs on mobile and desktop.",
-    icon: Building,
+    logo: "/logos/payce-logo.svg",
+    href: "https://payce.africau.co.zw/",
   },
   {
     key: "products",
@@ -82,7 +114,8 @@ const milestones = [
     label: "Products Shipped",
     description:
       "A growing portfolio of live solutions spanning AgriTech, FinTech, and enterprise software.",
-    icon: Lightbulb,
+    logo: "/logo.svg",
+    href: "/blog/2024-year-in-review",
   },
 ];
 
@@ -102,7 +135,12 @@ export default function AboutPage() {
     <main className="flex flex-col w-full">
       {/* ── Hero ── */}
       <section className="py-24 px-6 bg-background">
-        <div className="w-full md:max-w-[75%] mx-auto">
+        <motion.div
+          className="w-full md:max-w-[75%] mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground/50 mb-6">
             About Us
           </p>
@@ -131,11 +169,11 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Our Story / Timeline ── */}
-      <section className="py-24 px-6 bg-muted/30">
+      <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-16">
           <div className="flex items-center gap-6">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
@@ -145,10 +183,10 @@ export default function AboutPage() {
           </div>
 
           <div className="grid md:grid-cols-[1fr_auto] gap-12 items-end">
-            <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance max-w-lg">
+            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance max-w-lg">
               From a vision to a movement.
             </h2>
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs md:text-right md:pb-1">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] max-w-xs md:text-right md:pb-1">
               Founded in 2020, we started as a small team with a big idea —
               leverage technology to solve real problems in Africa. Here&apos;s
               how we got here.
@@ -156,33 +194,74 @@ export default function AboutPage() {
           </div>
 
           <div className="w-full">
-            {milestones.map((m, i) => (
-              <div
-                key={m.key}
-                className={`grid grid-cols-[6rem_1fr] md:grid-cols-[8rem_1fr_1fr] items-start gap-6 md:gap-12 py-8 ${
-                  i !== milestones.length - 1 ? "border-b border-border/40" : ""
-                }`}
-              >
-                {/* Date */}
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 pt-0.5">
-                  {m.date}
-                </p>
+            {milestones.map((m, i) => {
+              const row = (
+                <div
+                  className={`grid grid-cols-[6rem_1fr] md:grid-cols-[8rem_1fr_1fr] items-start gap-6 md:gap-12 py-8 ${
+                    i !== milestones.length - 1
+                      ? "border-b border-border/40"
+                      : ""
+                  }`}
+                >
+                  {/* Date */}
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 pt-0.5">
+                    {m.date}
+                  </p>
 
-                {/* Label */}
-                <p className="text-sm font-bold text-foreground">{m.label}</p>
+                  {/* Label / Logo */}
+                  <div className="flex flex-col gap-2">
+                    {m.logo ? (
+                      <div className="relative h-7 w-24">
+                        <Image
+                          src={m.logo}
+                          alt={`${m.label} logo`}
+                          fill
+                          className={cn(
+                            "object-contain object-left",
+                            m.logo === "/logo.svg" && "invert brightness-0 invert"
+                          )}
+                        />
+                      </div>
+                    ) : null}
+                    <p className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                      {m.label}
+                      {m.href && (
+                        <ArrowUpRight className="w-3.5 h-3.5 text-primary shrink-0 opacity-70" />
+                      )}
+                    </p>
+                  </div>
 
-                {/* Description — hidden on mobile, shows on md+ */}
-                <p className="hidden md:block text-sm text-muted-foreground leading-relaxed">
-                  {m.description}
-                </p>
-              </div>
-            ))}
+                  {/* Description — hidden on mobile, shows on md+ */}
+                  <p className="hidden md:block text-sm text-muted-foreground leading-relaxed">
+                    {m.description}
+                  </p>
+                </div>
+              );
+
+              return m.href ? (
+                <Link
+                  key={m.key}
+                  href={m.href}
+                  target={m.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    m.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className="block group hover:bg-muted/50 transition-colors duration-200 rounded-lg -mx-3 px-3"
+                >
+                  {row}
+                </Link>
+              ) : (
+                <div key={m.key}>{row}</div>
+              );
+            })}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── Vision + Partners ── */}
-      <section className="py-24 px-6 bg-background">
+      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-20">
           <div className="flex items-center gap-6">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
@@ -193,25 +272,24 @@ export default function AboutPage() {
 
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+              <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance">
                 The leading technology partner for businesses in Africa.
               </h2>
-              <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-relaxed max-w-md">
+              <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] max-w-md">
                 We aim to be the go-to technology partner for businesses across
                 the continent — providing the tools and expertise they need to
                 succeed in the digital age.
               </p>
-
               {/* Partners inline under vision text */}
-              <div className="pt-6 border-t border-border/40 space-y-4">
+              <div className="pt-6 space-y-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
                   Trusted by
                 </p>
                 <div className="relative overflow-hidden">
                   <Marquee.Root gap="2.5rem" duration={35}>
                     <Marquee.Content>
-                      {partners.map((name) => (
-                        <Marquee.Item key={name}>
+                      {[...partners, ...partners].map((name, i) => (
+                        <Marquee.Item key={`${name}-${i}`}>
                           <span className="text-sm font-semibold text-muted-foreground/50 hover:text-foreground/70 transition-colors duration-300 cursor-default whitespace-nowrap">
                             {name}
                           </span>
@@ -235,10 +313,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── Team ── */}
-      <section className="py-24 px-6 bg-muted/30">
+      <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-20">
           <div className="flex items-center gap-6">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
@@ -248,10 +326,10 @@ export default function AboutPage() {
           </div>
 
           <div className="space-y-2 max-w-xl">
-            <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance">
               The people behind the products.
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-relaxed pt-2">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] pt-2">
               A diverse group of experts spanning strategy, design, engineering,
               and finance — all working toward the same mission.
             </p>
@@ -280,10 +358,10 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── Office ── */}
-      <section className="py-24 px-6 bg-background">
+      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-12">
           <div className="flex items-center gap-6">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
@@ -293,10 +371,10 @@ export default function AboutPage() {
           </div>
 
           <div className="space-y-2 max-w-xl">
-            <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-balance">
+            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance">
               Come say hello.
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-relaxed pt-2">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] pt-2">
               We are based in the heart of Harare, Zimbabwe. We&apos;d love to
               have you over for a cup of coffee.
             </p>
@@ -311,7 +389,7 @@ export default function AboutPage() {
             />
           </div>
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }
