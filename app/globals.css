@@ -55,6 +55,20 @@
   --shadow-2xl: 0px 1px 2px 0px hsl(0 0% 0% / 0.45);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  --font-size-h1: clamp(2.25rem, 6vw, 3.25rem);
+  --font-size-h2: clamp(1.75rem, 4vw, 2.35rem);
+  --font-size-h3: clamp(1.4rem, 3vw, 1.85rem);
+  --font-size-h4: clamp(1.125rem, 2vw, 1.25rem);
+  --font-size-body-lg: 1.1rem;
+  --font-size-body: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-xs: 0.75rem;
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
 }
 
 .dark {
