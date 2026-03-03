@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { motion, useInView, useMotionValue, useSpring } from "motion/react";
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +25,29 @@ import {
 } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
+
+const staggerContainer = {
+  initial: {},
+  whileInView: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+  viewport: { once: true, margin: "-100px" },
+};
+
+const staggerItem = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: "easeOut" },
+};
 
 type Faq = { key: string; question: string; answer: string };
 type Project = {
@@ -192,6 +219,42 @@ const stats: Stat[] = [
   },
 ];
 
+function Counter({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const numericPart = value.match(/\d+/g)?.join("") || "";
+  const numericValue = parseInt(numericPart);
+  const suffix = value.replace(/[0-9,]/g, "");
+  const isNumeric = !isNaN(numericValue);
+
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, {
+    damping: 30,
+    stiffness: 60,
+  });
+
+  useEffect(() => {
+    if (isInView && isNumeric) {
+      motionValue.set(numericValue);
+    }
+  }, [motionValue, isInView, numericValue, isNumeric]);
+
+  useEffect(() => {
+    if (!isNumeric) return;
+    return springValue.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent =
+          Intl.NumberFormat("en-US").format(Math.floor(latest)) + suffix;
+      }
+    });
+  }, [springValue, suffix, isNumeric]);
+
+  if (!isNumeric) return <span>{value}</span>;
+
+  return <span ref={ref}>0{suffix}</span>;
+}
+
 export default function Home() {
   return (
     <main className="flex flex-col w-full">
@@ -214,7 +277,12 @@ export default function Home() {
         </div>
         <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-background to-transparent z-10" />
 
-        <div className="relative z-20 w-full px-6 md:max-w-[75%] mx-auto">
+        <motion.div
+          className="relative z-20 w-full px-6 md:max-w-[75%] mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <div className="max-w-4xl space-y-8">
             <Badge
               variant="outline"
@@ -252,11 +320,11 @@ export default function Home() {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Our Ventures ── */}
-      <section className="py-24 px-6 bg-background">
+      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-32">
           {/* Section header */}
           <div className="max-w-2xl space-y-4">
@@ -264,7 +332,7 @@ export default function Home() {
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold text-foreground">
               Building Africa&apos;s Digital Infrastructure
             </h2>
-            <p className="text-[length:var(--font-size-body)] text-muted-foreground leading-[var(--leading-normal)]">
+            <p className="text-[length:var(--font-size-body-lg)] text-muted-foreground leading-[var(--leading-relaxed)]">
               We develop and scale mission-driven platforms that bridge critical
               gaps in mechanization and financial services across the continent.
             </p>
@@ -277,9 +345,13 @@ export default function Home() {
                 ([key]) => key !== "Status",
               );
               return (
-                <div
+                <motion.div
                   key={project.key}
                   className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.7, delay: index * 0.1 }}
                 >
                   {/* Text column */}
                   <div
@@ -352,33 +424,40 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── Early Traction ── */}
-      <section className="py-24 px-6 bg-muted/30">
+      <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto">
-          <div className="mb-16 space-y-4 text-center">
+          <div className="mb-16 space-y-4 text-left">
             <Badge variant="outline">Early Traction</Badge>
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold text-foreground text-balance">
               We&apos;re just getting started.
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)] max-w-lg mx-auto">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] max-w-lg">
               Honest numbers from an early-stage team. Small today, but every
               figure represents a real business or farmer whose life we&apos;re
               making easier.
             </p>
           </div>
 
-          <div className="w-full">
+          <motion.div
+            className="w-full"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
             {stats.map((stat, i) => (
-              <div
+              <motion.div
                 key={stat.key}
                 className={`grid grid-cols-[1fr_auto] items-center gap-6 md:gap-12 py-8 ${i !== stats.length - 1 ? "border-b border-border/40" : ""}`}
+                variants={staggerItem}
               >
                 <div className="space-y-1.5 min-w-0">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
@@ -389,22 +468,22 @@ export default function Home() {
                   </p>
                 </div>
                 <p className="text-3xl md:text-4xl xl:text-5xl font-bold tracking-tighter text-foreground leading-none text-right whitespace-nowrap">
-                  {stat.value}
+                  <Counter value={stat.value} />
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── FAQ ── */}
-      <section className="py-20 px-6 bg-background">
+      <motion.section className="py-20 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           <div className="lg:col-span-5 max-w-md space-y-4">
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance">
               Everything You Need To Know
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)]">
               Find answers to common questions about our process, services, and
               how we can partner to build your next big idea.
             </p>
@@ -417,13 +496,13 @@ export default function Home() {
                   value={faq.key}
                   className="bg-card/50 border border-border/20 rounded-[2rem] hover:bg-card transition-colors px-2"
                 >
-                  <AccordionTrigger className="flex items-center justify-between gap-4 p-6 font-bold text-[length:var(--font-size-body)] text-left hover:no-underline [&>svg]:hidden">
+                  <AccordionTrigger className="flex items-center justify-between gap-4 p-6 font-bold text-[length:var(--font-size-body-lg)] text-left hover:no-underline [&>svg]:hidden">
                     <span className="text-balance">{faq.question}</span>
                     <div className="flex-shrink-0 p-2 rounded-full border border-border/50 group-data-[state=open]:bg-primary group-data-[state=open]:text-primary-foreground transition-all duration-300">
                       <Plus className="h-4 w-4 transition-transform duration-300 group-data-[state=open]:rotate-45" />
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-6 text-muted-foreground text-[length:var(--font-size-sm)] leading-[var(--leading-normal)]">
+                  <AccordionContent className="px-6 pb-6 text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -431,17 +510,17 @@ export default function Home() {
             </Accordion>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── Blog ── */}
-      <section className="py-24 px-6 bg-background">
+      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto">
           <div className="mb-12 max-w-xl space-y-4">
             <Badge variant="outline">From the Blog</Badge>
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance">
               Insights and Innovations
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)]">
               Stay updated with the latest trends in technology and our
               perspectives on the digital landscape in Africa.
             </p>
@@ -449,9 +528,13 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogs.map((blog, index) => (
-              <article
+              <motion.article
                 key={blog.key}
                 className="group cursor-pointer flex flex-col h-full"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden mb-6 border border-border/40">
                   <Image
@@ -467,13 +550,13 @@ export default function Home() {
                   )}
                 </div>
                 <div className="flex flex-col flex-1 gap-3">
-                  <p className="text-[length:var(--font-size-sm)] font-bold uppercase tracking-wider text-primary/60">
+                  <p className="text-[length:var(--font-size-xs)] font-bold uppercase tracking-wider text-primary/60">
                     {blog.date}
                   </p>
                   <h3 className="text-[length:var(--font-size-h4)] font-bold leading-[var(--leading-snug)]">
                     {blog.title}
                   </h3>
-                  <p className="text-muted-foreground text-[length:var(--font-size-sm)] leading-[var(--leading-normal)] line-clamp-3 flex-1">
+                  <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)] line-clamp-3 flex-1">
                     {blog.description}
                   </p>
                   <div className="mt-auto pt-5 flex items-center gap-3 border-t border-border/40">
@@ -499,11 +582,11 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }
