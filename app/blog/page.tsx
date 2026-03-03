@@ -3,10 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "motion/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
 
 type Blog = {
   key: string;
@@ -125,7 +133,12 @@ export default function BlogPage() {
     <main className="flex flex-col w-full">
       {/* ── Hero ── */}
       <section className="py-24 px-6 bg-background">
-        <div className="w-full md:max-w-[75%] mx-auto">
+        <motion.div
+          className="w-full md:max-w-[75%] mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground/50 mb-6">
             From the Blog
           </p>
@@ -138,11 +151,11 @@ export default function BlogPage() {
               AgriTech to design and engineering.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Latest post ── */}
-      <section className="py-24 px-6 bg-muted/30">
+      <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-16">
           <div className="flex items-center gap-6">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
@@ -201,10 +214,10 @@ export default function BlogPage() {
             </div>
           </Link>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── All posts ── */}
-      <section className="py-24 px-6 bg-background">
+      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-16">
           {/* Section label + filter inline */}
           <div className="flex flex-col gap-6">
@@ -289,7 +302,7 @@ export default function BlogPage() {
             </div>
           )}
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }

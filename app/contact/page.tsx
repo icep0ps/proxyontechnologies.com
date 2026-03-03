@@ -1,12 +1,22 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { ContactForm } from "@/components/ui/contact-form";
 import { Phone, Mail, MapPin, Plus } from "lucide-react";
+import { motion } from "motion/react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
 
 type Faq = {
   key: string;
@@ -63,7 +73,12 @@ export default function ContactPage() {
     <main className="flex flex-col w-full py-8 md:py-12 pt-24 md:pt-28">
       {/* ── Hero ── */}
       <section className="py-24 px-6 bg-background">
-        <div className="w-full md:max-w-[75%] mx-auto">
+        <motion.div
+          className="w-full md:max-w-[75%] mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground/50 mb-6">
             Contact
           </p>
@@ -76,11 +91,11 @@ export default function ContactPage() {
               or just want to say hello — we&apos;d love to hear from you.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Form Section ── */}
-      <section className="py-24 px-6 bg-muted/30">
+      <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto">
           <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
             {/* Left Column: Header */}
@@ -89,7 +104,7 @@ export default function ContactPage() {
               <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold text-balance">
                 Tell us about your project.
               </h2>
-              <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-relaxed max-w-md">
+              <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-relaxed max-w-md">
                 Share a few details and we&apos;ll come back to you with ideas,
                 timelines, and next steps.
               </p>
@@ -121,16 +136,16 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── FAQ ── */}
-      <section className="py-20 px-6 bg-background">
+      <motion.section className="py-20 px-6 bg-background" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           <div className="lg:col-span-5 max-w-md space-y-4">
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-snug)] font-bold text-balance">
               Everything You Need To Know
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body)] leading-[var(--leading-normal)]">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)]">
               Find answers to common questions about our process, services, and
               how we can partner to build your next big idea.
             </p>
@@ -158,7 +173,7 @@ export default function ContactPage() {
             </Accordion>
           </div>
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }
