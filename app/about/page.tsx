@@ -2,8 +2,9 @@
 
 import type React from "react";
 import * as Marquee from "@/components/ui/marquee";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Users } from "lucide-react";
 import { motion } from "motion/react";
+import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -74,7 +75,7 @@ const teamMembers: TeamMember[] = [
 const milestones = [
   {
     key: "founded",
-    date: "Jan 2020",
+    date: "January 2020",
     label: "Founded",
     description:
       "Proxyon Technologies was born in Harare with a mission to drive digital transformation across Africa.",
@@ -83,7 +84,7 @@ const milestones = [
   },
   {
     key: "agrilease-launch",
-    date: "Mar 2021",
+    date: "March 2021",
     label: "Agrilease Goes Live",
     description:
       "Our first platform enters the market, connecting smallholder farmers with equipment rental services.",
@@ -92,7 +93,7 @@ const milestones = [
   },
   {
     key: "team",
-    date: "Aug 2022",
+    date: "August 2022",
     label: "Team Grows",
     description:
       "Developers, designers, and strategists join the mission, bringing diverse expertise under one roof.",
@@ -101,7 +102,7 @@ const milestones = [
   },
   {
     key: "payce",
-    date: "Jun 2023",
+    date: "June 2023",
     label: "Payce Launches",
     description:
       "Payce enters beta — a full-featured POS system built for SMEs on mobile and desktop.",
@@ -175,85 +176,86 @@ export default function AboutPage() {
       {/* ── Our Story / Timeline ── */}
       <motion.section className="py-24 px-6 bg-muted/30" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-16">
-          <div className="flex items-center gap-6">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
-              Our Story
-            </span>
-            <div className="flex-1 h-px bg-border/40" />
-          </div>
-
-          <div className="grid md:grid-cols-[1fr_auto] gap-12 items-end">
-            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance max-w-lg">
+          <div className="max-w-2xl space-y-4">
+            <Badge variant="outline">Our Story</Badge>
+            <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance">
               From a vision to a movement.
             </h2>
-            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] max-w-xs md:text-right md:pb-1">
+            <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)]">
               Founded in 2020, we started as a small team with a big idea —
               leverage technology to solve real problems in Africa. Here&apos;s
               how we got here.
             </p>
           </div>
 
-          <div className="w-full">
+          <div className="relative space-y-0 pb-12">
+            {/* Vertical Line */}
+            <div className="absolute left-[20px] md:left-[24px] top-4 bottom-[48px] w-px bg-border/60" />
+
             {milestones.map((m, i) => {
-              const row = (
-                <div
-                  className={`grid grid-cols-[6rem_1fr] md:grid-cols-[8rem_1fr_1fr] items-start gap-6 md:gap-12 py-8 ${
-                    i !== milestones.length - 1
-                      ? "border-b border-border/40"
-                      : ""
-                  }`}
-                >
-                  {/* Date */}
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 pt-0.5">
+              const content = (
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base md:text-lg font-bold text-foreground leading-none">
+                      {m.label}
+                    </h3>
+                    {m.href && (
+                      <ArrowUpRight className="w-4 h-4 text-primary shrink-0 opacity-70" />
+                    )}
+                  </div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-primary/80 mt-1">
                     {m.date}
                   </p>
-
-                  {/* Label / Logo */}
-                  <div className="flex flex-col gap-2">
-                    {m.logo ? (
-                      <div className="relative h-7 w-24">
-                        <Image
-                          src={m.logo}
-                          alt={`${m.label} logo`}
-                          fill
-                          className={cn(
-                            "object-contain object-left",
-                            m.logo === "/logo.svg" && "invert brightness-0 invert"
-                          )}
-                        />
-                      </div>
-                    ) : null}
-                    <p className="text-sm font-bold text-foreground flex items-center gap-1.5">
-                      {m.label}
-                      {m.href && (
-                        <ArrowUpRight className="w-3.5 h-3.5 text-primary shrink-0 opacity-70" />
-                      )}
-                    </p>
-                  </div>
-
-                  {/* Description — hidden on mobile, shows on md+ */}
-                  <p className="hidden md:block text-sm text-muted-foreground leading-relaxed">
+                  <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl">
                     {m.description}
                   </p>
                 </div>
               );
 
-              return m.href ? (
-                <Link
+              return (
+                <div
                   key={m.key}
-                  href={m.href}
-                  target={m.href.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    m.href.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="block group hover:bg-muted/50 transition-colors duration-200 rounded-lg -mx-3 px-3"
+                  className="relative pl-14 md:pl-20 pb-12 last:pb-0"
                 >
-                  {row}
-                </Link>
-              ) : (
-                <div key={m.key}>{row}</div>
+                  {/* Timeline Node */}
+                  <div className="absolute left-0 top-0 z-10">
+                    <div className="relative flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-card border border-border/60 shadow-sm transition-all duration-300 overflow-hidden p-2">
+                      {m.logo ? (
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={m.logo}
+                            alt={`${m.label} logo`}
+                            fill
+                            className={cn(
+                              "object-contain",
+                              m.logo === "/logo.svg" &&
+                                "invert brightness-0 invert",
+                            )}
+                          />
+                        </div>
+                      ) : (
+                        <Users className="w-5 h-5 text-primary/60" />
+                      )}
+                    </div>
+                  </div>
+
+                  {m.href ? (
+                    <Link
+                      href={m.href}
+                      target={m.href.startsWith("http") ? "_blank" : undefined}
+                      rel={
+                        m.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      className="block"
+                    >
+                      {content}
+                    </Link>
+                  ) : (
+                    <div>{content}</div>
+                  )}
+                </div>
               );
             })}
           </div>
@@ -261,7 +263,7 @@ export default function AboutPage() {
       </motion.section>
 
       {/* ── Vision + Partners ── */}
-      <motion.section className="py-24 px-6 bg-background" {...fadeInUp}>
+      <motion.section className="py-24 px-6 bg-background overflow-hidden" {...fadeInUp}>
         <div className="w-full md:max-w-[75%] mx-auto space-y-20">
           <div className="flex items-center gap-6">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary whitespace-nowrap">
@@ -270,25 +272,26 @@ export default function AboutPage() {
             <div className="flex-1 h-px bg-border/40" />
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="space-y-6 min-w-0">
               <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance">
                 The leading technology partner for businesses in Africa.
               </h2>
-              <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] max-w-md">
+              <p className="text-muted-foreground text-[length:var(--font-size-body-lg)] leading-[var(--leading-relaxed)] max-w-full md:max-w-md">
                 We aim to be the go-to technology partner for businesses across
                 the continent — providing the tools and expertise they need to
                 succeed in the digital age.
               </p>
+
               {/* Partners inline under vision text */}
-              <div className="pt-6 space-y-4">
+              <div className="pt-6 space-y-4 w-full overflow-hidden">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
                   Trusted by
                 </p>
-                <div className="relative overflow-hidden">
-                  <Marquee.Root gap="2.5rem" duration={35}>
+                <div className="relative w-full">
+                  <Marquee.Root gap="2.5rem" duration={35} className="w-full">
                     <Marquee.Content>
-                      {[...partners, ...partners].map((name, i) => (
+                      {partners.map((name, i) => (
                         <Marquee.Item key={`${name}-${i}`}>
                           <span className="text-sm font-semibold text-muted-foreground/50 hover:text-foreground/70 transition-colors duration-300 cursor-default whitespace-nowrap">
                             {name}
@@ -297,13 +300,13 @@ export default function AboutPage() {
                       ))}
                     </Marquee.Content>
                   </Marquee.Root>
-                  <Marquee.Edge side="left" />
-                  <Marquee.Edge side="right" />
+                  <Marquee.Edge side="left" className="w-12 md:w-32" />
+                  <Marquee.Edge side="right" className="w-12 md:w-32" />
                 </div>
               </div>
             </div>
 
-            <div className="relative h-[420px] w-full rounded-2xl overflow-hidden bg-muted">
+            <div className="relative h-[300px] md:h-[420px] w-full rounded-2xl overflow-hidden bg-muted">
               <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2000&auto=format&fit=crop"
                 alt="Proxyon Technologies team"
@@ -325,7 +328,7 @@ export default function AboutPage() {
             <div className="flex-1 h-px bg-border/40" />
           </div>
 
-          <div className="space-y-2 max-w-xl">
+          <div className="space-y-2 max-w-xl min-w-0">
             <h2 className="text-[length:var(--font-size-h2)] leading-[var(--leading-tight)] font-bold tracking-tight text-balance">
               The people behind the products.
             </h2>
