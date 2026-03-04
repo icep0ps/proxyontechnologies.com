@@ -114,8 +114,10 @@ export default function ContactPage() {
                 {contactDetails.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div key={item.key} className="flex flex-col gap-3">
-                      <Icon className="h-5 w-5 text-primary" />
+                    <div key={item.key} className="flex flex-row items-start gap-4">
+                      <div className="p-3 rounded-xl bg-primary/10 text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
                       <div className="space-y-1">
                         <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
                           {item.label}
