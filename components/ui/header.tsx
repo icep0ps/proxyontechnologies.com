@@ -32,7 +32,7 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 border-b border-border/40 bg-background text-foreground py-4">
+    <header className="fixed top-0 left-0 w-full z-[100] border-b border-border/40 bg-background/95 backdrop-blur-sm text-foreground py-4">
       <div className="flex justify-between items-center md:max-w-[75%] mx-auto px-6">
         <Link href="/" className="flex items-center">
           <Image
@@ -85,7 +85,7 @@ export function Header() {
 
             <SheetContent
               side="left"
-              className="w-full flex flex-col items-center justify-between px-10 py-20 h-full"
+              className="w-full flex flex-col items-center justify-between px-10 py-20 h-full z-[110]"
             >
               <SheetHeader className="items-center w-full">
                 <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
